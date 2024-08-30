@@ -1,0 +1,196 @@
+
+application {
+  config {
+    baseName hubCarSpot
+    applicationType monolith
+    packageName com.hubcarspot.api
+    authenticationType jwt
+    databaseType mongodb
+    prodDatabaseType mongodb
+    clientFramework angularX
+  }
+  entities *
+}
+
+
+entity Instituicao {
+	nome String
+    telefone String required
+    cnpj String
+    cep String
+    endereco String
+    bairro String
+    cidade String
+    numero String
+    uf String
+    complemento String
+}
+
+entity Fornecedor {
+	instituicaoId String required
+	nome String
+    cnpj String
+    telefone String required
+    cep String
+    endereco String
+    bairro String
+    cidade String
+    numero String
+    uf String
+}
+
+entity Financeira {
+	instituicaoId String required
+	nome String
+    telefone String required
+    cnpj String
+    cep String
+    endereco String
+    bairro String
+    cidade String
+    numero String
+    uf String
+}
+
+entity Taxas {
+	instituicaoId String required
+	nome String
+    valor BigDecimal
+}
+
+entity Combustivel {
+	instituicaoId String required
+	nome String
+}
+
+entity Marca {
+	instituicaoId String required
+	nome String
+}
+
+entity StatusDocumento {
+	instituicaoId String required
+	nome String
+}
+
+entity Local {
+	instituicaoId String required
+	nome String
+}
+
+entity Filial {
+	instituicaoId String required
+	nome String
+    telefone String required
+    cnpj String
+    cep String
+    endereco String
+    bairro String
+    cidade String
+    numero String
+    uf String
+}
+
+entity CompraVeiculo {
+	instituicaoId String required
+    carroId String required
+    filialId String required
+    kmEntrada Integer required
+    valor BigDecimal required
+    valorEstimado BigDecimal
+    enderecoCrlv String 
+    cidadeCrlv String 
+    ufCrlv String 
+    cpfCrlv String 
+    dataCompra LocalDate required
+    condicaoPagamento String required
+    valorPago BigDecimal
+    // TODO: COLOCAR DADOS DO CLIENTE COMO SUBDOMINIO
+}
+
+entity VendaVeiculo {
+	instituicaoId String required
+    carroId String required
+    filialId String required
+    kmSaida Integer required
+    valorCompra BigDecimal required
+    valorTabela BigDecimal
+    valorVenda BigDecimal required
+    dataVenda LocalDate required
+    condicaoRecebimento String required
+    valorEntrada BigDecimal
+    valorFinanciado BigDecimal
+    // TODO: COLOCAR DADOS DO FINANCEIRA COMO SUBDOMINIO
+    // TODO: COLOCAR DADOS DO FINANCIAMENTO COMO SUBDOMINIO
+	// TODO: COLOCAR DADOS DO CLIENTE COMO SUBDOMINIO
+    // TODO: COLOCAR DADOS DO VENDEDOR COMO SUBDOMINIO
+}
+
+entity TrocaCarro {
+	instituicaoId String required
+    filialId String required
+    carroEntradaId String required
+    carroSaidaId String required
+    dataTroca LocalDate required
+    condicaoPagamento String
+    valorPago BigDecimal
+    valorRecebido BigDecimal
+}
+
+entity Veiculo {
+	createdAt LocalDate required
+    especie EspecieVeiculo required
+    placa String required unique
+    marca String required
+    modelo String
+    anoFabricacao Integer required
+    anoModelo Integer required
+    cor String
+    combustivel String required
+    cambio String
+    status StatusVeiculo
+    chassi String
+    renavam String
+    numeroMotor String
+    numeroCambio String
+    quilometraegem Integer
+    kmSaida Integer
+    cavalos String
+    motorizacao String
+    adicional String
+    descritivoCurtoAcessorios String
+}
+enum StatusVeiculo {
+	NOVO, USADO, QUEBRADO 
+}
+
+enum EspecieVeiculo {
+	CARRO, MOTO, ONIBUS, SUV, PICKUP 
+}
+
+entity UsuarioInstituicao{
+	identificador String required
+    instituicoesId String
+}
+
+relationship ManyToOne {
+  TrocaVeiculo{instituicao(nome)} to Instituicao
+  VendaVeiculo{instituicao(nome)} to Instituicao
+  Local{instituicao(nome)} to Instituicao
+  Filial{instituicao(nome)} to Instituicao
+  StatusDocumento{instituicao(nome)} to Instituicao
+  Financeira{instituicao(nome)} to Instituicao
+  Fornecedor{instituicao(nome)} to Instituicao
+  UsuarioInstituicao{instituicao(nome)} to Instituicao
+  Taxas{instituicao(nome)} to Instituicao
+	Marca{instituicao(nome)} to Instituicao
+    VendaVeiculo{veiculo(placa)} to Veiculo
+    TrocaVeiculo{filial(nome)} to Filial
+    
+    CompraVeiculo{instituicao(nome)} to Instituicao
+    CompraVeiculo{veiculo(placa)} to Veiculo
+    CompraVeiculo{filial(nome)} to Filial
+}
+
+paginate CompraVeiculo, TrocaVeiculo, VendaVeiculo, Financeira, Veiculo, Marca, Fornecedor with pagination
+service all with serviceClass
