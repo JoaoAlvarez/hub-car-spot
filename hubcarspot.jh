@@ -93,15 +93,15 @@ entity Filial {
 
 entity CompraVeiculo {
 	instituicaoId String required
-    carroId String required
+    veiculoId String required
     filialId String required
     kmEntrada Integer required
     valor BigDecimal required
     valorEstimado BigDecimal
-    enderecoCrlv String 
-    cidadeCrlv String 
-    ufCrlv String 
-    cpfCrlv String 
+    enderecoCrlv String
+    cidadeCrlv String
+    ufCrlv String
+    cpfCrlv String
     dataCompra LocalDate required
     condicaoPagamento String required
     valorPago BigDecimal
@@ -110,7 +110,7 @@ entity CompraVeiculo {
 
 entity VendaVeiculo {
 	instituicaoId String required
-    carroId String required
+    veiculoId String required
     filialId String required
     kmSaida Integer required
     valorCompra BigDecimal required
@@ -126,11 +126,11 @@ entity VendaVeiculo {
     // TODO: COLOCAR DADOS DO VENDEDOR COMO SUBDOMINIO
 }
 
-entity TrocaCarro {
+entity TrocaVeiculo {
 	instituicaoId String required
     filialId String required
-    carroEntradaId String required
-    carroSaidaId String required
+    veiculoEntradaId String required
+    veiculoSaidaId String required
     dataTroca LocalDate required
     condicaoPagamento String
     valorPago BigDecimal
@@ -161,11 +161,11 @@ entity Veiculo {
     descritivoCurtoAcessorios String
 }
 enum StatusVeiculo {
-	NOVO, USADO, QUEBRADO 
+	NOVO, USADO, QUEBRADO
 }
 
 enum EspecieVeiculo {
-	CARRO, MOTO, ONIBUS, SUV, PICKUP 
+	CARRO, MOTO, ONIBUS, SUV, PICKUP
 }
 
 entity UsuarioInstituicao{
@@ -186,7 +186,7 @@ relationship ManyToOne {
 	Marca{instituicao(nome)} to Instituicao
     VendaVeiculo{veiculo(placa)} to Veiculo
     TrocaVeiculo{filial(nome)} to Filial
-    
+
     CompraVeiculo{instituicao(nome)} to Instituicao
     CompraVeiculo{veiculo(placa)} to Veiculo
     CompraVeiculo{filial(nome)} to Filial
