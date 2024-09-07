@@ -1,0 +1,79 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145117"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "kmSaida",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorCompra",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorTabela",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorVenda",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataVenda",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condicaoRecebimento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorEntrada",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorFinanciado",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "VendaVeiculo",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "placa",
+      "otherEntityName": "veiculo",
+      "relationshipName": "veiculo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "instituicao",
+      "relationshipName": "instituicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "filial",
+      "relationshipName": "filial",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "financeira",
+      "relationshipName": "financeira",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

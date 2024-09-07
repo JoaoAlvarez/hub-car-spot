@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145110"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "Taxas",
+  "relationships": [
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "instituicao",
+      "relationshipName": "instituicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

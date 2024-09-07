@@ -1,0 +1,267 @@
+<div>
+  <h2 id="page-heading" data-cy="VeiculoHeading">
+    <span>Veiculos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-veiculo"
+        [routerLink]="['/veiculo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Criar novo Veiculo</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (veiculos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>Nenhum Veiculo encontrado</span>
+    </div>
+  }
+
+  @if (veiculos && veiculos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span>Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="especie">
+              <div class="d-flex">
+                <span>Especie</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="placa">
+              <div class="d-flex">
+                <span>Placa</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="marca">
+              <div class="d-flex">
+                <span>Marca</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="modelo">
+              <div class="d-flex">
+                <span>Modelo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="anoFabricacao">
+              <div class="d-flex">
+                <span>Ano Fabricacao</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="anoModelo">
+              <div class="d-flex">
+                <span>Ano Modelo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cor">
+              <div class="d-flex">
+                <span>Cor</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="combustivel">
+              <div class="d-flex">
+                <span>Combustivel</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cambio">
+              <div class="d-flex">
+                <span>Cambio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status">
+              <div class="d-flex">
+                <span>Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="chassi">
+              <div class="d-flex">
+                <span>Chassi</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="renavam">
+              <div class="d-flex">
+                <span>Renavam</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroMotor">
+              <div class="d-flex">
+                <span>Numero Motor</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroCambio">
+              <div class="d-flex">
+                <span>Numero Cambio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quilometraegem">
+              <div class="d-flex">
+                <span>Quilometraegem</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="kmSaida">
+              <div class="d-flex">
+                <span>Km Saida</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cavalos">
+              <div class="d-flex">
+                <span>Cavalos</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="motorizacao">
+              <div class="d-flex">
+                <span>Motorizacao</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="adicional">
+              <div class="d-flex">
+                <span>Adicional</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="descritivoCurtoAcessorios">
+              <div class="d-flex">
+                <span>Descritivo Curto Acessorios</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (veiculo of veiculos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/veiculo', veiculo.id, 'view']">{{ veiculo.id }}</a>
+              </td>
+              <td>{{ veiculo.createdAt | formatMediumDate }}</td>
+              <td>
+                {{ { null: '', CARRO: 'CARRO', MOTO: 'MOTO', ONIBUS: 'ONIBUS', SUV: 'SUV', PICKUP: 'PICKUP' }[veiculo.especie ?? 'null'] }}
+              </td>
+              <td>{{ veiculo.placa }}</td>
+              <td>{{ veiculo.marca }}</td>
+              <td>{{ veiculo.modelo }}</td>
+              <td>{{ veiculo.anoFabricacao }}</td>
+              <td>{{ veiculo.anoModelo }}</td>
+              <td>{{ veiculo.cor }}</td>
+              <td>{{ veiculo.combustivel }}</td>
+              <td>{{ veiculo.cambio }}</td>
+              <td>{{ { null: '', NOVO: 'NOVO', USADO: 'USADO', QUEBRADO: 'QUEBRADO' }[veiculo.status ?? 'null'] }}</td>
+              <td>{{ veiculo.chassi }}</td>
+              <td>{{ veiculo.renavam }}</td>
+              <td>{{ veiculo.numeroMotor }}</td>
+              <td>{{ veiculo.numeroCambio }}</td>
+              <td>{{ veiculo.quilometraegem }}</td>
+              <td>{{ veiculo.kmSaida }}</td>
+              <td>{{ veiculo.cavalos }}</td>
+              <td>{{ veiculo.motorizacao }}</td>
+              <td>{{ veiculo.adicional }}</td>
+              <td>{{ veiculo.descritivoCurtoAcessorios }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/veiculo', veiculo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/veiculo', veiculo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(veiculo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (veiculos && veiculos.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

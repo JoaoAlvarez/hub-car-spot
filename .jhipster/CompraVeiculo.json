@@ -1,0 +1,79 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145116"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "kmEntrada",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorEstimado",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "enderecoCrlv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cidadeCrlv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ufCrlv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cpfCrlv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataCompra",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condicaoPagamento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorPago",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "CompraVeiculo",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "instituicao",
+      "relationshipName": "instituicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "placa",
+      "otherEntityName": "veiculo",
+      "relationshipName": "veiculo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "filial",
+      "relationshipName": "filial",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,197 @@
+<div>
+  <h2 id="page-heading" data-cy="TrocaVeiculoHeading">
+    <span>Troca Veiculos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-troca-veiculo"
+        [routerLink]="['/troca-veiculo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Criar novo Troca Veiculo</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (trocaVeiculos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>Nenhum Troca Veiculo encontrado</span>
+    </div>
+  }
+
+  @if (trocaVeiculos && trocaVeiculos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="carroEntradaId">
+              <div class="d-flex">
+                <span>Carro Entrada Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="carroSaidaId">
+              <div class="d-flex">
+                <span>Carro Saida Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dataTroca">
+              <div class="d-flex">
+                <span>Data Troca</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="condicaoPagamento">
+              <div class="d-flex">
+                <span>Condicao Pagamento</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorPago">
+              <div class="d-flex">
+                <span>Valor Pago</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorRecebido">
+              <div class="d-flex">
+                <span>Valor Recebido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="veiculoEntrada.placa">
+              <div class="d-flex">
+                <span>Veiculo Entrada</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="veiculoSaida.placa">
+              <div class="d-flex">
+                <span>Veiculo Saida</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="filial.nome">
+              <div class="d-flex">
+                <span>Filial</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="instituicao.nome">
+              <div class="d-flex">
+                <span>Instituicao</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (trocaVeiculo of trocaVeiculos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/troca-veiculo', trocaVeiculo.id, 'view']">{{ trocaVeiculo.id }}</a>
+              </td>
+              <td>{{ trocaVeiculo.carroEntradaId }}</td>
+              <td>{{ trocaVeiculo.carroSaidaId }}</td>
+              <td>{{ trocaVeiculo.dataTroca | formatMediumDate }}</td>
+              <td>{{ trocaVeiculo.condicaoPagamento }}</td>
+              <td>{{ trocaVeiculo.valorPago }}</td>
+              <td>{{ trocaVeiculo.valorRecebido }}</td>
+              <td>
+                @if (trocaVeiculo.veiculoEntrada) {
+                  <div>
+                    <a [routerLink]="['/veiculo', trocaVeiculo.veiculoEntrada.id, 'view']">{{ trocaVeiculo.veiculoEntrada.placa }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (trocaVeiculo.veiculoSaida) {
+                  <div>
+                    <a [routerLink]="['/veiculo', trocaVeiculo.veiculoSaida.id, 'view']">{{ trocaVeiculo.veiculoSaida.placa }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (trocaVeiculo.filial) {
+                  <div>
+                    <a [routerLink]="['/filial', trocaVeiculo.filial.id, 'view']">{{ trocaVeiculo.filial.nome }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (trocaVeiculo.instituicao) {
+                  <div>
+                    <a [routerLink]="['/instituicao', trocaVeiculo.instituicao.id, 'view']">{{ trocaVeiculo.instituicao.nome }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/troca-veiculo', trocaVeiculo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/troca-veiculo', trocaVeiculo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(trocaVeiculo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (trocaVeiculos && trocaVeiculos.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

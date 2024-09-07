@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (instituicao(); as instituicaoRef) {
+      <div>
+        <h2 data-cy="instituicaoDetailsHeading"><span>Instituicao</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.id }}</span>
+          </dd>
+          <dt><span>Nome</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.nome }}</span>
+          </dd>
+          <dt><span>Telefone</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.telefone }}</span>
+          </dd>
+          <dt><span>Cnpj</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.cnpj }}</span>
+          </dd>
+          <dt><span>Cep</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.cep }}</span>
+          </dd>
+          <dt><span>Endereco</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.endereco }}</span>
+          </dd>
+          <dt><span>Bairro</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.bairro }}</span>
+          </dd>
+          <dt><span>Cidade</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.cidade }}</span>
+          </dd>
+          <dt><span>Numero</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.numero }}</span>
+          </dd>
+          <dt><span>Uf</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.uf }}</span>
+          </dd>
+          <dt><span>Complemento</span></dt>
+          <dd>
+            <span>{{ instituicaoRef.complemento }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/instituicao', instituicaoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

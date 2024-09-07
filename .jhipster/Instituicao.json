@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145106"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telefone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cnpj",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cep",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "endereco",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bairro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cidade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uf",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complemento",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Instituicao",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

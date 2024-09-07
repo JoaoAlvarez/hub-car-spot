@@ -1,0 +1,211 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-compra-veiculo-heading" data-cy="CompraVeiculoCreateUpdateHeading">Criar ou editar Compra Veiculo</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let kmEntradaRef = editForm.get('kmEntrada')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_kmEntrada">Km Entrada</label>
+          <input type="number" class="form-control" name="kmEntrada" id="field_kmEntrada" data-cy="kmEntrada" formControlName="kmEntrada" />
+          @if (kmEntradaRef.invalid && (kmEntradaRef.dirty || kmEntradaRef.touched)) {
+            <div>
+              @if (editForm.get('kmEntrada')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('kmEntrada')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let valorRef = editForm.get('valor')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_valor">Valor</label>
+          <input type="number" class="form-control" name="valor" id="field_valor" data-cy="valor" formControlName="valor" />
+          @if (valorRef.invalid && (valorRef.dirty || valorRef.touched)) {
+            <div>
+              @if (editForm.get('valor')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('valor')?.errors?.number">Este campo é do tipo numérico.</small>
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorEstimado">Valor Estimado</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorEstimado"
+            id="field_valorEstimado"
+            data-cy="valorEstimado"
+            formControlName="valorEstimado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_enderecoCrlv">Endereco Crlv</label>
+          <input
+            type="text"
+            class="form-control"
+            name="enderecoCrlv"
+            id="field_enderecoCrlv"
+            data-cy="enderecoCrlv"
+            formControlName="enderecoCrlv"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cidadeCrlv">Cidade Crlv</label>
+          <input
+            type="text"
+            class="form-control"
+            name="cidadeCrlv"
+            id="field_cidadeCrlv"
+            data-cy="cidadeCrlv"
+            formControlName="cidadeCrlv"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ufCrlv">Uf Crlv</label>
+          <input type="text" class="form-control" name="ufCrlv" id="field_ufCrlv" data-cy="ufCrlv" formControlName="ufCrlv" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cpfCrlv">Cpf Crlv</label>
+          <input type="text" class="form-control" name="cpfCrlv" id="field_cpfCrlv" data-cy="cpfCrlv" formControlName="cpfCrlv" />
+        </div>
+
+        @let dataCompraRef = editForm.get('dataCompra')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dataCompra">Data Compra</label>
+          <div class="input-group">
+            <input
+              id="field_dataCompra"
+              data-cy="dataCompra"
+              type="text"
+              class="form-control"
+              name="dataCompra"
+              ngbDatepicker
+              #dataCompraDp="ngbDatepicker"
+              formControlName="dataCompra"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataCompraDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (dataCompraRef.invalid && (dataCompraRef.dirty || dataCompraRef.touched)) {
+            <div>
+              @if (editForm.get('dataCompra')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let condicaoPagamentoRef = editForm.get('condicaoPagamento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_condicaoPagamento">Condicao Pagamento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="condicaoPagamento"
+            id="field_condicaoPagamento"
+            data-cy="condicaoPagamento"
+            formControlName="condicaoPagamento"
+          />
+          @if (condicaoPagamentoRef.invalid && (condicaoPagamentoRef.dirty || condicaoPagamentoRef.touched)) {
+            <div>
+              @if (editForm.get('condicaoPagamento')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorPago">Valor Pago</label>
+          <input type="number" class="form-control" name="valorPago" id="field_valorPago" data-cy="valorPago" formControlName="valorPago" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_instituicao">Instituicao</label>
+          <select
+            class="form-control"
+            id="field_instituicao"
+            data-cy="instituicao"
+            name="instituicao"
+            formControlName="instituicao"
+            [compareWith]="compareInstituicao"
+          >
+            <option [ngValue]="null"></option>
+            @for (instituicaoOption of instituicaosSharedCollection; track $index) {
+              <option [ngValue]="instituicaoOption">{{ instituicaoOption.nome }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_veiculo">Veiculo</label>
+          <select
+            class="form-control"
+            id="field_veiculo"
+            data-cy="veiculo"
+            name="veiculo"
+            formControlName="veiculo"
+            [compareWith]="compareVeiculo"
+          >
+            <option [ngValue]="null"></option>
+            @for (veiculoOption of veiculosSharedCollection; track $index) {
+              <option [ngValue]="veiculoOption">{{ veiculoOption.placa }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_filial">Filial</label>
+          <select
+            class="form-control"
+            id="field_filial"
+            data-cy="filial"
+            name="filial"
+            formControlName="filial"
+            [compareWith]="compareFilial"
+          >
+            <option [ngValue]="null"></option>
+            @for (filialOption of filialsSharedCollection; track $index) {
+              <option [ngValue]="filialOption">{{ filialOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

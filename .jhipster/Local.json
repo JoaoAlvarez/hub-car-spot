@@ -1,0 +1,24 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145114"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Local",
+  "relationships": [
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "instituicao",
+      "relationshipName": "instituicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

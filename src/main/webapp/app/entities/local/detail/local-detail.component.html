@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (local(); as localRef) {
+      <div>
+        <h2 data-cy="localDetailsHeading"><span>Local</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ localRef.id }}</span>
+          </dd>
+          <dt><span>Nome</span></dt>
+          <dd>
+            <span>{{ localRef.nome }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (local()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', local()!.instituicao?.id, 'view']">{{ localRef.instituicao?.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/local', localRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,106 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145119"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "especie",
+      "fieldType": "EspecieVeiculo",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CARRO,MOTO,ONIBUS,SUV,PICKUP"
+    },
+    {
+      "fieldName": "placa",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "marca",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modelo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anoFabricacao",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anoModelo",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "combustivel",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cambio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "StatusVeiculo",
+      "fieldValues": "NOVO,USADO,QUEBRADO"
+    },
+    {
+      "fieldName": "chassi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renavam",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroMotor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroCambio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quilometraegem",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "kmSaida",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "cavalos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "motorizacao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adicional",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descritivoCurtoAcessorios",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Veiculo",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

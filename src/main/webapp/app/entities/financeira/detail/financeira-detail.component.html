@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (financeira(); as financeiraRef) {
+      <div>
+        <h2 data-cy="financeiraDetailsHeading"><span>Financeira</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ financeiraRef.id }}</span>
+          </dd>
+          <dt><span>Nome</span></dt>
+          <dd>
+            <span>{{ financeiraRef.nome }}</span>
+          </dd>
+          <dt><span>Telefone</span></dt>
+          <dd>
+            <span>{{ financeiraRef.telefone }}</span>
+          </dd>
+          <dt><span>Cnpj</span></dt>
+          <dd>
+            <span>{{ financeiraRef.cnpj }}</span>
+          </dd>
+          <dt><span>Cep</span></dt>
+          <dd>
+            <span>{{ financeiraRef.cep }}</span>
+          </dd>
+          <dt><span>Endereco</span></dt>
+          <dd>
+            <span>{{ financeiraRef.endereco }}</span>
+          </dd>
+          <dt><span>Bairro</span></dt>
+          <dd>
+            <span>{{ financeiraRef.bairro }}</span>
+          </dd>
+          <dt><span>Cidade</span></dt>
+          <dd>
+            <span>{{ financeiraRef.cidade }}</span>
+          </dd>
+          <dt><span>Numero</span></dt>
+          <dd>
+            <span>{{ financeiraRef.numero }}</span>
+          </dd>
+          <dt><span>Uf</span></dt>
+          <dd>
+            <span>{{ financeiraRef.uf }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (financeira()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', financeira()!.instituicao?.id, 'view']">{{ financeiraRef.instituicao?.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/financeira', financeiraRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

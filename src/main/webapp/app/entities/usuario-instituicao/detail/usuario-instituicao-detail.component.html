@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (usuarioInstituicao(); as usuarioInstituicaoRef) {
+      <div>
+        <h2 data-cy="usuarioInstituicaoDetailsHeading"><span>Usuario Instituicao</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.id }}</span>
+          </dd>
+          <dt><span>Identificador</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.identificador }}</span>
+          </dd>
+          <dt><span>Is Master</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.isMaster }}</span>
+          </dd>
+          <dt><span>Role</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.role }}</span>
+          </dd>
+          <dt><span>Read</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.read }}</span>
+          </dd>
+          <dt><span>Write</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.write }}</span>
+          </dd>
+          <dt><span>Update</span></dt>
+          <dd>
+            <span>{{ usuarioInstituicaoRef.update }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (usuarioInstituicao()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', usuarioInstituicao()!.instituicao?.id, 'view']">{{
+                  usuarioInstituicaoRef.instituicao?.nome
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/usuario-instituicao', usuarioInstituicaoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

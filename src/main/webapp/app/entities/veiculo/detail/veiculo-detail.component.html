@@ -1,0 +1,116 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (veiculo(); as veiculoRef) {
+      <div>
+        <h2 data-cy="veiculoDetailsHeading"><span>Veiculo</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ veiculoRef.id }}</span>
+          </dd>
+          <dt><span>Created At</span></dt>
+          <dd>
+            <span>{{ veiculoRef.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Especie</span></dt>
+          <dd>
+            <span>{{
+              { null: '', CARRO: 'CARRO', MOTO: 'MOTO', ONIBUS: 'ONIBUS', SUV: 'SUV', PICKUP: 'PICKUP' }[veiculoRef.especie ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span>Placa</span></dt>
+          <dd>
+            <span>{{ veiculoRef.placa }}</span>
+          </dd>
+          <dt><span>Marca</span></dt>
+          <dd>
+            <span>{{ veiculoRef.marca }}</span>
+          </dd>
+          <dt><span>Modelo</span></dt>
+          <dd>
+            <span>{{ veiculoRef.modelo }}</span>
+          </dd>
+          <dt><span>Ano Fabricacao</span></dt>
+          <dd>
+            <span>{{ veiculoRef.anoFabricacao }}</span>
+          </dd>
+          <dt><span>Ano Modelo</span></dt>
+          <dd>
+            <span>{{ veiculoRef.anoModelo }}</span>
+          </dd>
+          <dt><span>Cor</span></dt>
+          <dd>
+            <span>{{ veiculoRef.cor }}</span>
+          </dd>
+          <dt><span>Combustivel</span></dt>
+          <dd>
+            <span>{{ veiculoRef.combustivel }}</span>
+          </dd>
+          <dt><span>Cambio</span></dt>
+          <dd>
+            <span>{{ veiculoRef.cambio }}</span>
+          </dd>
+          <dt><span>Status</span></dt>
+          <dd>
+            <span>{{ { null: '', NOVO: 'NOVO', USADO: 'USADO', QUEBRADO: 'QUEBRADO' }[veiculoRef.status ?? 'null'] }}</span>
+          </dd>
+          <dt><span>Chassi</span></dt>
+          <dd>
+            <span>{{ veiculoRef.chassi }}</span>
+          </dd>
+          <dt><span>Renavam</span></dt>
+          <dd>
+            <span>{{ veiculoRef.renavam }}</span>
+          </dd>
+          <dt><span>Numero Motor</span></dt>
+          <dd>
+            <span>{{ veiculoRef.numeroMotor }}</span>
+          </dd>
+          <dt><span>Numero Cambio</span></dt>
+          <dd>
+            <span>{{ veiculoRef.numeroCambio }}</span>
+          </dd>
+          <dt><span>Quilometraegem</span></dt>
+          <dd>
+            <span>{{ veiculoRef.quilometraegem }}</span>
+          </dd>
+          <dt><span>Km Saida</span></dt>
+          <dd>
+            <span>{{ veiculoRef.kmSaida }}</span>
+          </dd>
+          <dt><span>Cavalos</span></dt>
+          <dd>
+            <span>{{ veiculoRef.cavalos }}</span>
+          </dd>
+          <dt><span>Motorizacao</span></dt>
+          <dd>
+            <span>{{ veiculoRef.motorizacao }}</span>
+          </dd>
+          <dt><span>Adicional</span></dt>
+          <dd>
+            <span>{{ veiculoRef.adicional }}</span>
+          </dd>
+          <dt><span>Descritivo Curto Acessorios</span></dt>
+          <dd>
+            <span>{{ veiculoRef.descritivoCurtoAcessorios }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/veiculo', veiculoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

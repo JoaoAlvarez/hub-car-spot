@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (trocaVeiculo(); as trocaVeiculoRef) {
+      <div>
+        <h2 data-cy="trocaVeiculoDetailsHeading"><span>Troca Veiculo</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.id }}</span>
+          </dd>
+          <dt><span>Carro Entrada Id</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.carroEntradaId }}</span>
+          </dd>
+          <dt><span>Carro Saida Id</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.carroSaidaId }}</span>
+          </dd>
+          <dt><span>Data Troca</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.dataTroca | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Condicao Pagamento</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.condicaoPagamento }}</span>
+          </dd>
+          <dt><span>Valor Pago</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.valorPago }}</span>
+          </dd>
+          <dt><span>Valor Recebido</span></dt>
+          <dd>
+            <span>{{ trocaVeiculoRef.valorRecebido }}</span>
+          </dd>
+          <dt><span>Veiculo Entrada</span></dt>
+          <dd>
+            @if (trocaVeiculo()!.veiculoEntrada) {
+              <div>
+                <a [routerLink]="['/veiculo', trocaVeiculo()!.veiculoEntrada?.id, 'view']">{{ trocaVeiculoRef.veiculoEntrada?.placa }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Veiculo Saida</span></dt>
+          <dd>
+            @if (trocaVeiculo()!.veiculoSaida) {
+              <div>
+                <a [routerLink]="['/veiculo', trocaVeiculo()!.veiculoSaida?.id, 'view']">{{ trocaVeiculoRef.veiculoSaida?.placa }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Filial</span></dt>
+          <dd>
+            @if (trocaVeiculo()!.filial) {
+              <div>
+                <a [routerLink]="['/filial', trocaVeiculo()!.filial?.id, 'view']">{{ trocaVeiculoRef.filial?.nome }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (trocaVeiculo()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', trocaVeiculo()!.instituicao?.id, 'view']">{{ trocaVeiculoRef.instituicao?.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/troca-veiculo', trocaVeiculoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
