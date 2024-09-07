@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (filial(); as filialRef) {
+      <div>
+        <h2 data-cy="filialDetailsHeading"><span>Filial</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ filialRef.id }}</span>
+          </dd>
+          <dt><span>Nome</span></dt>
+          <dd>
+            <span>{{ filialRef.nome }}</span>
+          </dd>
+          <dt><span>Telefone</span></dt>
+          <dd>
+            <span>{{ filialRef.telefone }}</span>
+          </dd>
+          <dt><span>Cnpj</span></dt>
+          <dd>
+            <span>{{ filialRef.cnpj }}</span>
+          </dd>
+          <dt><span>Cep</span></dt>
+          <dd>
+            <span>{{ filialRef.cep }}</span>
+          </dd>
+          <dt><span>Endereco</span></dt>
+          <dd>
+            <span>{{ filialRef.endereco }}</span>
+          </dd>
+          <dt><span>Bairro</span></dt>
+          <dd>
+            <span>{{ filialRef.bairro }}</span>
+          </dd>
+          <dt><span>Cidade</span></dt>
+          <dd>
+            <span>{{ filialRef.cidade }}</span>
+          </dd>
+          <dt><span>Numero</span></dt>
+          <dd>
+            <span>{{ filialRef.numero }}</span>
+          </dd>
+          <dt><span>Uf</span></dt>
+          <dd>
+            <span>{{ filialRef.uf }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (filial()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', filial()!.instituicao?.id, 'view']">{{ filialRef.instituicao?.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/filial', filialRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

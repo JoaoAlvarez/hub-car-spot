@@ -7,7 +7,7 @@ application {
     authenticationType jwt
     databaseType mongodb
     prodDatabaseType mongodb
-    clientFramework angularX
+    clientFramework angular
   }
   entities *
 }
@@ -26,8 +26,16 @@ entity Instituicao {
     complemento String
 }
 
+entity UsuarioInstituicao {
+	identificador String required
+    isMaster Boolean required
+    role String required
+    read Boolean required
+    write Boolean required
+    update Boolean required
+}
+
 entity Fornecedor {
-	instituicaoId String required
 	nome String
     cnpj String
     telefone String required
@@ -40,7 +48,6 @@ entity Fornecedor {
 }
 
 entity Financeira {
-	instituicaoId String required
 	nome String
     telefone String required
     cnpj String
@@ -53,18 +60,16 @@ entity Financeira {
 }
 
 entity Taxas {
-	instituicaoId String required
 	nome String
     valor BigDecimal
 }
 
+
 entity Combustivel {
-	instituicaoId String required
 	nome String
 }
 
 entity Marca {
-	instituicaoId String required
 	nome String
 }
 
@@ -74,12 +79,10 @@ entity StatusDocumento {
 }
 
 entity Local {
-	instituicaoId String required
 	nome String
 }
 
 entity Filial {
-	instituicaoId String required
 	nome String
     telefone String required
     cnpj String
@@ -92,9 +95,6 @@ entity Filial {
 }
 
 entity CompraVeiculo {
-	instituicaoId String required
-    carroId String required
-    filialId String required
     kmEntrada Integer required
     valor BigDecimal required
     valorEstimado BigDecimal
@@ -109,9 +109,6 @@ entity CompraVeiculo {
 }
 
 entity VendaVeiculo {
-	instituicaoId String required
-    carroId String required
-    filialId String required
     kmSaida Integer required
     valorCompra BigDecimal required
     valorTabela BigDecimal
@@ -126,9 +123,7 @@ entity VendaVeiculo {
     // TODO: COLOCAR DADOS DO VENDEDOR COMO SUBDOMINIO
 }
 
-entity TrocaCarro {
-	instituicaoId String required
-    filialId String required
+entity TrocaVeiculo {
     carroEntradaId String required
     carroSaidaId String required
     dataTroca LocalDate required
@@ -168,14 +163,10 @@ enum EspecieVeiculo {
 	CARRO, MOTO, ONIBUS, SUV, PICKUP 
 }
 
-entity UsuarioInstituicao{
-	identificador String required
-    instituicoesId String
-}
-
 relationship ManyToOne {
-  TrocaVeiculo{instituicao(nome)} to Instituicao
-  VendaVeiculo{instituicao(nome)} to Instituicao
+
+
+  
   Local{instituicao(nome)} to Instituicao
   Filial{instituicao(nome)} to Instituicao
   StatusDocumento{instituicao(nome)} to Instituicao
@@ -183,13 +174,20 @@ relationship ManyToOne {
   Fornecedor{instituicao(nome)} to Instituicao
   UsuarioInstituicao{instituicao(nome)} to Instituicao
   Taxas{instituicao(nome)} to Instituicao
-	Marca{instituicao(nome)} to Instituicao
-    VendaVeiculo{veiculo(placa)} to Veiculo
-    TrocaVeiculo{filial(nome)} to Filial
-    
-    CompraVeiculo{instituicao(nome)} to Instituicao
-    CompraVeiculo{veiculo(placa)} to Veiculo
-    CompraVeiculo{filial(nome)} to Filial
+  
+  VendaVeiculo{veiculo(placa)} to Veiculo
+  VendaVeiculo{instituicao(nome)} to Instituicao
+  VendaVeiculo{filial(nome)} to Filial
+  VendaVeiculo{financeira(nome)} to Financeira
+  
+  TrocaVeiculo{veiculoEntrada(placa)} to Veiculo
+  TrocaVeiculo{veiculoSaida(placa)} to Veiculo
+  TrocaVeiculo{filial(nome)} to Filial
+  TrocaVeiculo{instituicao(nome)} to Instituicao
+  
+  CompraVeiculo{instituicao(nome)} to Instituicao
+  CompraVeiculo{veiculo(placa)} to Veiculo
+  CompraVeiculo{filial(nome)} to Filial
 }
 
 paginate CompraVeiculo, TrocaVeiculo, VendaVeiculo, Financeira, Veiculo, Marca, Fornecedor with pagination

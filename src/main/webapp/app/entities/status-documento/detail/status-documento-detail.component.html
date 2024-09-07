@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (statusDocumento(); as statusDocumentoRef) {
+      <div>
+        <h2 data-cy="statusDocumentoDetailsHeading"><span>Status Documento</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ statusDocumentoRef.id }}</span>
+          </dd>
+          <dt><span>Instituicao Id</span></dt>
+          <dd>
+            <span>{{ statusDocumentoRef.instituicaoId }}</span>
+          </dd>
+          <dt><span>Nome</span></dt>
+          <dd>
+            <span>{{ statusDocumentoRef.nome }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (statusDocumento()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', statusDocumento()!.instituicao?.id, 'view']">{{
+                  statusDocumentoRef.instituicao?.nome
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/status-documento', statusDocumentoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

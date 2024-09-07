@@ -1,0 +1,69 @@
+{
+  "annotations": {
+    "changelogDate": "20240907145118"
+  },
+  "applications": ["hubCarSpot"],
+  "fields": [
+    {
+      "fieldName": "carroEntradaId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "carroSaidaId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataTroca",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condicaoPagamento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valorPago",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorRecebido",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "TrocaVeiculo",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "placa",
+      "otherEntityName": "veiculo",
+      "relationshipName": "veiculoEntrada",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "placa",
+      "otherEntityName": "veiculo",
+      "relationshipName": "veiculoSaida",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "filial",
+      "relationshipName": "filial",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "instituicao",
+      "relationshipName": "instituicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

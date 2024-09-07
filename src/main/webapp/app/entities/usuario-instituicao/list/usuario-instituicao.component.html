@@ -1,0 +1,149 @@
+<div>
+  <h2 id="page-heading" data-cy="UsuarioInstituicaoHeading">
+    <span>Usuario Instituicaos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-usuario-instituicao"
+        [routerLink]="['/usuario-instituicao/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Criar novo Usuario Instituicao</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (usuarioInstituicaos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>Nenhum Usuario Instituicao encontrado</span>
+    </div>
+  }
+
+  @if (usuarioInstituicaos && usuarioInstituicaos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="identificador">
+              <div class="d-flex">
+                <span>Identificador</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="isMaster">
+              <div class="d-flex">
+                <span>Is Master</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="role">
+              <div class="d-flex">
+                <span>Role</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="read">
+              <div class="d-flex">
+                <span>Read</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="write">
+              <div class="d-flex">
+                <span>Write</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="update">
+              <div class="d-flex">
+                <span>Update</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="instituicao.nome">
+              <div class="d-flex">
+                <span>Instituicao</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usuarioInstituicao of usuarioInstituicaos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/usuario-instituicao', usuarioInstituicao.id, 'view']">{{ usuarioInstituicao.id }}</a>
+              </td>
+              <td>{{ usuarioInstituicao.identificador }}</td>
+              <td>{{ usuarioInstituicao.isMaster }}</td>
+              <td>{{ usuarioInstituicao.role }}</td>
+              <td>{{ usuarioInstituicao.read }}</td>
+              <td>{{ usuarioInstituicao.write }}</td>
+              <td>{{ usuarioInstituicao.update }}</td>
+              <td>
+                @if (usuarioInstituicao.instituicao) {
+                  <div>
+                    <a [routerLink]="['/instituicao', usuarioInstituicao.instituicao.id, 'view']">{{
+                      usuarioInstituicao.instituicao.nome
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/usuario-instituicao', usuarioInstituicao.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Visualizar</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/usuario-instituicao', usuarioInstituicao.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(usuarioInstituicao)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

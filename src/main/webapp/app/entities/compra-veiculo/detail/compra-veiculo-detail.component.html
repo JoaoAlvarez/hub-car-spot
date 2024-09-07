@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (compraVeiculo(); as compraVeiculoRef) {
+      <div>
+        <h2 data-cy="compraVeiculoDetailsHeading"><span>Compra Veiculo</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Código</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.id }}</span>
+          </dd>
+          <dt><span>Km Entrada</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.kmEntrada }}</span>
+          </dd>
+          <dt><span>Valor</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.valor }}</span>
+          </dd>
+          <dt><span>Valor Estimado</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.valorEstimado }}</span>
+          </dd>
+          <dt><span>Endereco Crlv</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.enderecoCrlv }}</span>
+          </dd>
+          <dt><span>Cidade Crlv</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.cidadeCrlv }}</span>
+          </dd>
+          <dt><span>Uf Crlv</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.ufCrlv }}</span>
+          </dd>
+          <dt><span>Cpf Crlv</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.cpfCrlv }}</span>
+          </dd>
+          <dt><span>Data Compra</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.dataCompra | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Condicao Pagamento</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.condicaoPagamento }}</span>
+          </dd>
+          <dt><span>Valor Pago</span></dt>
+          <dd>
+            <span>{{ compraVeiculoRef.valorPago }}</span>
+          </dd>
+          <dt><span>Instituicao</span></dt>
+          <dd>
+            @if (compraVeiculo()!.instituicao) {
+              <div>
+                <a [routerLink]="['/instituicao', compraVeiculo()!.instituicao?.id, 'view']">{{ compraVeiculoRef.instituicao?.nome }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Veiculo</span></dt>
+          <dd>
+            @if (compraVeiculo()!.veiculo) {
+              <div>
+                <a [routerLink]="['/veiculo', compraVeiculo()!.veiculo?.id, 'view']">{{ compraVeiculoRef.veiculo?.placa }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Filial</span></dt>
+          <dd>
+            @if (compraVeiculo()!.filial) {
+              <div>
+                <a [routerLink]="['/filial', compraVeiculo()!.filial?.id, 'view']">{{ compraVeiculoRef.filial?.nome }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/compra-veiculo', compraVeiculoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
