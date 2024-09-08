@@ -15,12 +15,28 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": false,
     "enableTranslation": false,
-    "entities": [],
+    "entities": [
+      "Instituicao",
+      "UsuarioInstituicao",
+      "Fornecedor",
+      "Financeira",
+      "Taxas",
+      "Combustivel",
+      "Marca",
+      "StatusDocumento",
+      "Local",
+      "Filial",
+      "CompraVeiculo",
+      "VendaVeiculo",
+      "TrocaVeiculo",
+      "Veiculo"
+    ],
     "gitCompany": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "8.7.0",
     "jwtSecretKey": "OTE2NGY5MDVkYjY2MGQxYTBjMmI1NTRmMmFkYWJmM2JjMTc4MmM1YWYwMWRjZjU1MGEzZDMzMjc0YTE2ZmZkZTM5MDk0ZGIyYTM5MjJiNmVjZDI3OWJkMmFhNWU2MTQxYzUzODZjMDEzMzIxYTdjODkzYTI2YWE5MGI4MDRjODg=",
     "languages": ["en"],
+    "lastLiquibaseTimestamp": 1725720679000,
     "messageBroker": false,
     "nativeLanguage": "pt-br",
     "packageFolder": "com/hubcarspot/api",
@@ -34,7 +50,39 @@
     "websocket": false,
     "withAdminUi": true
   },
-  "git-company": "JoaoAlvarez",
-  "git-provider": "GitHub",
-  "repository-name": "hub-car-spot"
+  "git-company": {
+    "0": "J",
+    "1": "o",
+    "2": "a",
+    "3": "o",
+    "4": "A",
+    "5": "l",
+    "6": "v",
+    "7": "a",
+    "8": "r",
+    "9": "e",
+    "10": "z"
+  },
+  "git-provider": {
+    "0": "G",
+    "1": "i",
+    "2": "t",
+    "3": "H",
+    "4": "u",
+    "5": "b"
+  },
+  "repository-name": {
+    "0": "h",
+    "1": "u",
+    "2": "b",
+    "3": "-",
+    "4": "c",
+    "5": "a",
+    "6": "r",
+    "7": "-",
+    "8": "s",
+    "9": "p",
+    "10": "o",
+    "11": "t"
+  }
 }

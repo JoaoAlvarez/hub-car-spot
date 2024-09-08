@@ -19,6 +19,7 @@ public final class SecurityUtils {
     public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
 
     public static final String AUTHORITIES_KEY = "auth";
+    public static final String USUARIO_INSTITUCAO_KEY = "usuarioInstituicao";
 
     private SecurityUtils() {}
 
@@ -55,6 +56,11 @@ public final class SecurityUtils {
         return Optional.ofNullable(securityContext.getAuthentication())
             .filter(authentication -> authentication.getCredentials() instanceof String)
             .map(authentication -> (String) authentication.getCredentials());
+    }
+
+    public static String getCurrentUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return (String) ((Jwt) securityContext.getAuthentication().getCredentials()).getClaims().get("usuarioInstituicao");
     }
 
     /**

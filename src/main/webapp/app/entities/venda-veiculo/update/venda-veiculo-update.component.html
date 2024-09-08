@@ -1,0 +1,245 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-venda-veiculo-heading" data-cy="VendaVeiculoCreateUpdateHeading">Criar ou editar Venda Veiculo</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let kmSaidaRef = editForm.get('kmSaida')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_kmSaida">Km Saida</label>
+          <input type="number" class="form-control" name="kmSaida" id="field_kmSaida" data-cy="kmSaida" formControlName="kmSaida" />
+          @if (kmSaidaRef.invalid && (kmSaidaRef.dirty || kmSaidaRef.touched)) {
+            <div>
+              @if (editForm.get('kmSaida')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('kmSaida')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let valorCompraRef = editForm.get('valorCompra')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_valorCompra">Valor Compra</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorCompra"
+            id="field_valorCompra"
+            data-cy="valorCompra"
+            formControlName="valorCompra"
+          />
+          @if (valorCompraRef.invalid && (valorCompraRef.dirty || valorCompraRef.touched)) {
+            <div>
+              @if (editForm.get('valorCompra')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('valorCompra')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorTabela">Valor Tabela</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorTabela"
+            id="field_valorTabela"
+            data-cy="valorTabela"
+            formControlName="valorTabela"
+          />
+        </div>
+
+        @let valorVendaRef = editForm.get('valorVenda')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_valorVenda">Valor Venda</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorVenda"
+            id="field_valorVenda"
+            data-cy="valorVenda"
+            formControlName="valorVenda"
+          />
+          @if (valorVendaRef.invalid && (valorVendaRef.dirty || valorVendaRef.touched)) {
+            <div>
+              @if (editForm.get('valorVenda')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('valorVenda')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let dataVendaRef = editForm.get('dataVenda')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dataVenda">Data Venda</label>
+          <div class="input-group">
+            <input
+              id="field_dataVenda"
+              data-cy="dataVenda"
+              type="text"
+              class="form-control"
+              name="dataVenda"
+              ngbDatepicker
+              #dataVendaDp="ngbDatepicker"
+              formControlName="dataVenda"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataVendaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (dataVendaRef.invalid && (dataVendaRef.dirty || dataVendaRef.touched)) {
+            <div>
+              @if (editForm.get('dataVenda')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let condicaoRecebimentoRef = editForm.get('condicaoRecebimento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_condicaoRecebimento">Condicao Recebimento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="condicaoRecebimento"
+            id="field_condicaoRecebimento"
+            data-cy="condicaoRecebimento"
+            formControlName="condicaoRecebimento"
+          />
+          @if (condicaoRecebimentoRef.invalid && (condicaoRecebimentoRef.dirty || condicaoRecebimentoRef.touched)) {
+            <div>
+              @if (editForm.get('condicaoRecebimento')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorEntrada">Valor Entrada</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorEntrada"
+            id="field_valorEntrada"
+            data-cy="valorEntrada"
+            formControlName="valorEntrada"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorFinanciado">Valor Financiado</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorFinanciado"
+            id="field_valorFinanciado"
+            data-cy="valorFinanciado"
+            formControlName="valorFinanciado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_veiculo">Veiculo</label>
+          <select
+            class="form-control"
+            id="field_veiculo"
+            data-cy="veiculo"
+            name="veiculo"
+            formControlName="veiculo"
+            [compareWith]="compareVeiculo"
+          >
+            <option [ngValue]="null"></option>
+            @for (veiculoOption of veiculosSharedCollection; track $index) {
+              <option [ngValue]="veiculoOption">{{ veiculoOption.placa }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_instituicao">Instituicao</label>
+          <select
+            class="form-control"
+            id="field_instituicao"
+            data-cy="instituicao"
+            name="instituicao"
+            formControlName="instituicao"
+            [compareWith]="compareInstituicao"
+          >
+            <option [ngValue]="null"></option>
+            @for (instituicaoOption of instituicaosSharedCollection; track $index) {
+              <option [ngValue]="instituicaoOption">{{ instituicaoOption.nome }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_filial">Filial</label>
+          <select
+            class="form-control"
+            id="field_filial"
+            data-cy="filial"
+            name="filial"
+            formControlName="filial"
+            [compareWith]="compareFilial"
+          >
+            <option [ngValue]="null"></option>
+            @for (filialOption of filialsSharedCollection; track $index) {
+              <option [ngValue]="filialOption">{{ filialOption.nome }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_financeira">Financeira</label>
+          <select
+            class="form-control"
+            id="field_financeira"
+            data-cy="financeira"
+            name="financeira"
+            formControlName="financeira"
+            [compareWith]="compareFinanceira"
+          >
+            <option [ngValue]="null"></option>
+            @for (financeiraOption of financeirasSharedCollection; track $index) {
+              <option [ngValue]="financeiraOption">{{ financeiraOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

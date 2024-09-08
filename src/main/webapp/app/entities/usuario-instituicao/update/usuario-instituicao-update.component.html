@@ -1,0 +1,136 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-usuario-instituicao-heading" data-cy="UsuarioInstituicaoCreateUpdateHeading">Criar ou editar Usuario Instituicao</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let identificadorRef = editForm.get('identificador')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_identificador">Identificador</label>
+          <input
+            type="text"
+            class="form-control"
+            name="identificador"
+            id="field_identificador"
+            data-cy="identificador"
+            formControlName="identificador"
+          />
+          @if (identificadorRef.invalid && (identificadorRef.dirty || identificadorRef.touched)) {
+            <div>
+              @if (editForm.get('identificador')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let isMasterRef = editForm.get('isMaster')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isMaster">Is Master</label>
+          <input type="checkbox" class="form-check" name="isMaster" id="field_isMaster" data-cy="isMaster" formControlName="isMaster" />
+          @if (isMasterRef.invalid && (isMasterRef.dirty || isMasterRef.touched)) {
+            <div>
+              @if (editForm.get('isMaster')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let roleRef = editForm.get('role')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_role">Role</label>
+          <input type="text" class="form-control" name="role" id="field_role" data-cy="role" formControlName="role" />
+          @if (roleRef.invalid && (roleRef.dirty || roleRef.touched)) {
+            <div>
+              @if (editForm.get('role')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let readRef = editForm.get('read')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_read">Read</label>
+          <input type="checkbox" class="form-check" name="read" id="field_read" data-cy="read" formControlName="read" />
+          @if (readRef.invalid && (readRef.dirty || readRef.touched)) {
+            <div>
+              @if (editForm.get('read')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let writeRef = editForm.get('write')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_write">Write</label>
+          <input type="checkbox" class="form-check" name="write" id="field_write" data-cy="write" formControlName="write" />
+          @if (writeRef.invalid && (writeRef.dirty || writeRef.touched)) {
+            <div>
+              @if (editForm.get('write')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let updateRef = editForm.get('update')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_update">Update</label>
+          <input type="checkbox" class="form-check" name="update" id="field_update" data-cy="update" formControlName="update" />
+          @if (updateRef.invalid && (updateRef.dirty || updateRef.touched)) {
+            <div>
+              @if (editForm.get('update')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_instituicao">Instituicao</label>
+          <select
+            class="form-control"
+            id="field_instituicao"
+            data-cy="instituicao"
+            name="instituicao"
+            formControlName="instituicao"
+            [compareWith]="compareInstituicao"
+          >
+            <option [ngValue]="null"></option>
+            @for (instituicaoOption of instituicaosSharedCollection; track $index) {
+              <option [ngValue]="instituicaoOption">{{ instituicaoOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,274 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-veiculo-heading" data-cy="VeiculoCreateUpdateHeading">Criar ou editar Veiculo</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let createdAtRef = editForm.get('createdAt')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (createdAtRef.invalid && (createdAtRef.dirty || createdAtRef.touched)) {
+            <div>
+              @if (editForm.get('createdAt')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let especieRef = editForm.get('especie')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_especie">Especie</label>
+          <select class="form-control" name="especie" formControlName="especie" id="field_especie" data-cy="especie">
+            <option [ngValue]="null"></option>
+            @for (especieVeiculo of especieVeiculoValues; track $index) {
+              <option [value]="especieVeiculo">
+                {{ { null: '', CARRO: 'CARRO', MOTO: 'MOTO', ONIBUS: 'ONIBUS', SUV: 'SUV', PICKUP: 'PICKUP' }[especieVeiculo] }}
+              </option>
+            }
+          </select>
+          @if (especieRef.invalid && (especieRef.dirty || especieRef.touched)) {
+            <div>
+              @if (editForm.get('especie')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let placaRef = editForm.get('placa')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_placa">Placa</label>
+          <input type="text" class="form-control" name="placa" id="field_placa" data-cy="placa" formControlName="placa" />
+          @if (placaRef.invalid && (placaRef.dirty || placaRef.touched)) {
+            <div>
+              @if (editForm.get('placa')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let marcaRef = editForm.get('marca')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_marca">Marca</label>
+          <input type="text" class="form-control" name="marca" id="field_marca" data-cy="marca" formControlName="marca" />
+          @if (marcaRef.invalid && (marcaRef.dirty || marcaRef.touched)) {
+            <div>
+              @if (editForm.get('marca')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_modelo">Modelo</label>
+          <input type="text" class="form-control" name="modelo" id="field_modelo" data-cy="modelo" formControlName="modelo" />
+        </div>
+
+        @let anoFabricacaoRef = editForm.get('anoFabricacao')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_anoFabricacao">Ano Fabricacao</label>
+          <input
+            type="number"
+            class="form-control"
+            name="anoFabricacao"
+            id="field_anoFabricacao"
+            data-cy="anoFabricacao"
+            formControlName="anoFabricacao"
+          />
+          @if (anoFabricacaoRef.invalid && (anoFabricacaoRef.dirty || anoFabricacaoRef.touched)) {
+            <div>
+              @if (editForm.get('anoFabricacao')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('anoFabricacao')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let anoModeloRef = editForm.get('anoModelo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_anoModelo">Ano Modelo</label>
+          <input type="number" class="form-control" name="anoModelo" id="field_anoModelo" data-cy="anoModelo" formControlName="anoModelo" />
+          @if (anoModeloRef.invalid && (anoModeloRef.dirty || anoModeloRef.touched)) {
+            <div>
+              @if (editForm.get('anoModelo')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('anoModelo')?.errors?.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cor">Cor</label>
+          <input type="text" class="form-control" name="cor" id="field_cor" data-cy="cor" formControlName="cor" />
+        </div>
+
+        @let combustivelRef = editForm.get('combustivel')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_combustivel">Combustivel</label>
+          <input
+            type="text"
+            class="form-control"
+            name="combustivel"
+            id="field_combustivel"
+            data-cy="combustivel"
+            formControlName="combustivel"
+          />
+          @if (combustivelRef.invalid && (combustivelRef.dirty || combustivelRef.touched)) {
+            <div>
+              @if (editForm.get('combustivel')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cambio">Cambio</label>
+          <input type="text" class="form-control" name="cambio" id="field_cambio" data-cy="cambio" formControlName="cambio" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            @for (statusVeiculo of statusVeiculoValues; track $index) {
+              <option [value]="statusVeiculo">{{ { null: '', NOVO: 'NOVO', USADO: 'USADO', QUEBRADO: 'QUEBRADO' }[statusVeiculo] }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_chassi">Chassi</label>
+          <input type="text" class="form-control" name="chassi" id="field_chassi" data-cy="chassi" formControlName="chassi" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_renavam">Renavam</label>
+          <input type="text" class="form-control" name="renavam" id="field_renavam" data-cy="renavam" formControlName="renavam" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroMotor">Numero Motor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numeroMotor"
+            id="field_numeroMotor"
+            data-cy="numeroMotor"
+            formControlName="numeroMotor"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroCambio">Numero Cambio</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numeroCambio"
+            id="field_numeroCambio"
+            data-cy="numeroCambio"
+            formControlName="numeroCambio"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_quilometraegem">Quilometraegem</label>
+          <input
+            type="number"
+            class="form-control"
+            name="quilometraegem"
+            id="field_quilometraegem"
+            data-cy="quilometraegem"
+            formControlName="quilometraegem"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_kmSaida">Km Saida</label>
+          <input type="number" class="form-control" name="kmSaida" id="field_kmSaida" data-cy="kmSaida" formControlName="kmSaida" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cavalos">Cavalos</label>
+          <input type="text" class="form-control" name="cavalos" id="field_cavalos" data-cy="cavalos" formControlName="cavalos" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_motorizacao">Motorizacao</label>
+          <input
+            type="text"
+            class="form-control"
+            name="motorizacao"
+            id="field_motorizacao"
+            data-cy="motorizacao"
+            formControlName="motorizacao"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_adicional">Adicional</label>
+          <input type="text" class="form-control" name="adicional" id="field_adicional" data-cy="adicional" formControlName="adicional" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_descritivoCurtoAcessorios">Descritivo Curto Acessorios</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descritivoCurtoAcessorios"
+            id="field_descritivoCurtoAcessorios"
+            data-cy="descritivoCurtoAcessorios"
+            formControlName="descritivoCurtoAcessorios"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

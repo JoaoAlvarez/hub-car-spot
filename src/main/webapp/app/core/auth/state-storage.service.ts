@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+/* eslint-disable */
 
 @Injectable({ providedIn: 'root' })
 export class StateStorageService {
   private previousUrlKey = 'previousUrl';
   private authenticationKey = 'jhi-authenticationToken';
+  private instituicaoKey = 'sel-inst-id';
 
   storeUrl(url: string): void {
     sessionStorage.setItem(this.previousUrlKey, JSON.stringify(url));
@@ -36,5 +38,19 @@ export class StateStorageService {
   clearAuthenticationToken(): void {
     sessionStorage.removeItem(this.authenticationKey);
     localStorage.removeItem(this.authenticationKey);
+    localStorage.removeItem(this.instituicaoKey);
+  }
+
+  // instituicao
+  setInstituicao(id: any): void {
+    localStorage.setItem(this.instituicaoKey, id);
+  }
+
+  getInstituicao(): string | null {
+    return localStorage.getItem(this.instituicaoKey) as string | null;
+  }
+
+  clearInstiticao(): void {
+    localStorage.removeItem(this.instituicaoKey);
   }
 }

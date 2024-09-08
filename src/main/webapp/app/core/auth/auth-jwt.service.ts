@@ -1,8 +1,9 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { IUsuarioInstituicao } from 'app/entities/usuario-instituicao/usuario-instituicao.model';
 import { Login } from 'app/login/login.model';
 import { ApplicationConfigService } from '../config/application-config.service';
 import { StateStorageService } from './state-storage.service';
@@ -19,6 +20,10 @@ export class AuthServerProvider {
 
   getToken(): string {
     return this.stateStorageService.getAuthenticationToken() ?? '';
+  }
+
+  listarInstiuicoes(username: string): Observable<HttpResponse<IUsuarioInstituicao[]>> {
+    return this.http.get<IUsuarioInstituicao[]>(`api/authenticate/instituicoes/${username}`, { observe: 'response' });
   }
 
   login(credentials: Login): Observable<void> {

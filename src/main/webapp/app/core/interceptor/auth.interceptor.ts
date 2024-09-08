@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
+/* eslint-disable */
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -21,6 +22,15 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    const instituicaoSelecionadaId = this.stateStorageService.getInstituicao();
+    if (instituicaoSelecionadaId) {
+      request = request.clone({
+        setHeaders: {
+          'sel-inst-id': `${instituicaoSelecionadaId}`,
         },
       });
     }

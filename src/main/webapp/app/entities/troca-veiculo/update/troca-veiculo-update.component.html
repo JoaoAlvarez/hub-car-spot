@@ -1,0 +1,196 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-troca-veiculo-heading" data-cy="TrocaVeiculoCreateUpdateHeading">Criar ou editar Troca Veiculo</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let carroEntradaIdRef = editForm.get('carroEntradaId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_carroEntradaId">Carro Entrada Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="carroEntradaId"
+            id="field_carroEntradaId"
+            data-cy="carroEntradaId"
+            formControlName="carroEntradaId"
+          />
+          @if (carroEntradaIdRef.invalid && (carroEntradaIdRef.dirty || carroEntradaIdRef.touched)) {
+            <div>
+              @if (editForm.get('carroEntradaId')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let carroSaidaIdRef = editForm.get('carroSaidaId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_carroSaidaId">Carro Saida Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="carroSaidaId"
+            id="field_carroSaidaId"
+            data-cy="carroSaidaId"
+            formControlName="carroSaidaId"
+          />
+          @if (carroSaidaIdRef.invalid && (carroSaidaIdRef.dirty || carroSaidaIdRef.touched)) {
+            <div>
+              @if (editForm.get('carroSaidaId')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let dataTrocaRef = editForm.get('dataTroca')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dataTroca">Data Troca</label>
+          <div class="input-group">
+            <input
+              id="field_dataTroca"
+              data-cy="dataTroca"
+              type="text"
+              class="form-control"
+              name="dataTroca"
+              ngbDatepicker
+              #dataTrocaDp="ngbDatepicker"
+              formControlName="dataTroca"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataTrocaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (dataTrocaRef.invalid && (dataTrocaRef.dirty || dataTrocaRef.touched)) {
+            <div>
+              @if (editForm.get('dataTroca')?.errors?.required) {
+                <small class="form-text text-danger">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_condicaoPagamento">Condicao Pagamento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="condicaoPagamento"
+            id="field_condicaoPagamento"
+            data-cy="condicaoPagamento"
+            formControlName="condicaoPagamento"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorPago">Valor Pago</label>
+          <input type="number" class="form-control" name="valorPago" id="field_valorPago" data-cy="valorPago" formControlName="valorPago" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorRecebido">Valor Recebido</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorRecebido"
+            id="field_valorRecebido"
+            data-cy="valorRecebido"
+            formControlName="valorRecebido"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_veiculoEntrada">Veiculo Entrada</label>
+          <select
+            class="form-control"
+            id="field_veiculoEntrada"
+            data-cy="veiculoEntrada"
+            name="veiculoEntrada"
+            formControlName="veiculoEntrada"
+            [compareWith]="compareVeiculo"
+          >
+            <option [ngValue]="null"></option>
+            @for (veiculoOption of veiculosSharedCollection; track $index) {
+              <option [ngValue]="veiculoOption">{{ veiculoOption.placa }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_veiculoSaida">Veiculo Saida</label>
+          <select
+            class="form-control"
+            id="field_veiculoSaida"
+            data-cy="veiculoSaida"
+            name="veiculoSaida"
+            formControlName="veiculoSaida"
+            [compareWith]="compareVeiculo"
+          >
+            <option [ngValue]="null"></option>
+            @for (veiculoOption of veiculosSharedCollection; track $index) {
+              <option [ngValue]="veiculoOption">{{ veiculoOption.placa }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_filial">Filial</label>
+          <select
+            class="form-control"
+            id="field_filial"
+            data-cy="filial"
+            name="filial"
+            formControlName="filial"
+            [compareWith]="compareFilial"
+          >
+            <option [ngValue]="null"></option>
+            @for (filialOption of filialsSharedCollection; track $index) {
+              <option [ngValue]="filialOption">{{ filialOption.nome }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_instituicao">Instituicao</label>
+          <select
+            class="form-control"
+            id="field_instituicao"
+            data-cy="instituicao"
+            name="instituicao"
+            formControlName="instituicao"
+            [compareWith]="compareInstituicao"
+          >
+            <option [ngValue]="null"></option>
+            @for (instituicaoOption of instituicaosSharedCollection; track $index) {
+              <option [ngValue]="instituicaoOption">{{ instituicaoOption.nome }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

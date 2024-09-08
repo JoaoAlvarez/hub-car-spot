@@ -16,6 +16,9 @@ public class LoginVM {
     @Size(min = 4, max = 100)
     private String password;
 
+    @NotNull
+    private String usuarioInstituicao;
+
     private boolean rememberMe;
 
     public String getUsername() {
@@ -32,6 +35,14 @@ public class LoginVM {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsuarioInstituicao() {
+        return usuarioInstituicao;
+    }
+
+    public void setUsuarioInstituicao(String usuarioInstituicao) {
+        this.usuarioInstituicao = usuarioInstituicao;
     }
 
     public boolean isRememberMe() {
