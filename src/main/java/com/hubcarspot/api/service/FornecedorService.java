@@ -1,6 +1,7 @@
 package com.hubcarspot.api.service;
 
 import com.hubcarspot.api.domain.Fornecedor;
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.repository.FornecedorRepository;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,9 +19,11 @@ public class FornecedorService {
     private static final Logger LOG = LoggerFactory.getLogger(FornecedorService.class);
 
     private final FornecedorRepository fornecedorRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public FornecedorService(FornecedorRepository fornecedorRepository) {
+    public FornecedorService(FornecedorRepository fornecedorRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.fornecedorRepository = fornecedorRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -29,8 +32,9 @@ public class FornecedorService {
      * @param fornecedor the entity to save.
      * @return the persisted entity.
      */
-    public Fornecedor save(Fornecedor fornecedor) {
+    public Fornecedor save(Fornecedor fornecedor) throws Exception {
         LOG.debug("Request to save Fornecedor : {}", fornecedor);
+        fornecedor.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return fornecedorRepository.save(fornecedor);
     }
 
@@ -96,9 +100,10 @@ public class FornecedorService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<Fornecedor> findAll(Pageable pageable) {
+    public Page<Fornecedor> findAll(Pageable pageable) throws Exception {
         LOG.debug("Request to get all Fornecedors");
-        return fornecedorRepository.findAll(pageable);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return fornecedorRepository.findByInstituicaoId(instituicao.getId(), pageable);
     }
 
     /**

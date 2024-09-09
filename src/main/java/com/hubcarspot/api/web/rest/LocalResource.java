@@ -26,7 +26,7 @@ public class LocalResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalResource.class);
 
-    private static final String ENTITY_NAME = "local";
+    private static final String ENTITY_NAME = "Local";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -48,7 +48,7 @@ public class LocalResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Local> createLocal(@RequestBody Local local) throws URISyntaxException {
+    public ResponseEntity<Local> createLocal(@RequestBody Local local) throws Exception {
         LOG.debug("REST request to save Local : {}", local);
         if (local.getId() != null) {
             throw new BadRequestAlertException("A new local cannot already have an ID", ENTITY_NAME, "idexists");
@@ -130,7 +130,8 @@ public class LocalResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of locals in body.
      */
     @GetMapping("")
-    public List<Local> getAllLocals(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<Local> getAllLocals(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload)
+        throws Exception {
         LOG.debug("REST request to get all Locals");
         return localService.findAll();
     }

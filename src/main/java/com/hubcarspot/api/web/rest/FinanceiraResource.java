@@ -33,7 +33,7 @@ public class FinanceiraResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(FinanceiraResource.class);
 
-    private static final String ENTITY_NAME = "financeira";
+    private static final String ENTITY_NAME = "Financeira";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -55,7 +55,7 @@ public class FinanceiraResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Financeira> createFinanceira(@Valid @RequestBody Financeira financeira) throws URISyntaxException {
+    public ResponseEntity<Financeira> createFinanceira(@Valid @RequestBody Financeira financeira) throws Exception {
         LOG.debug("REST request to save Financeira : {}", financeira);
         if (financeira.getId() != null) {
             throw new BadRequestAlertException("A new financeira cannot already have an ID", ENTITY_NAME, "idexists");
@@ -146,14 +146,9 @@ public class FinanceiraResource {
     public ResponseEntity<List<Financeira>> getAllFinanceiras(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get a page of Financeiras");
-        Page<Financeira> page;
-        if (eagerload) {
-            page = financeiraService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = financeiraService.findAll(pageable);
-        }
+        Page<Financeira> page = financeiraService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

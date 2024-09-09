@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.Taxas;
 import com.hubcarspot.api.repository.TaxasRepository;
 import java.util.List;
@@ -19,9 +20,11 @@ public class TaxasService {
     private static final Logger LOG = LoggerFactory.getLogger(TaxasService.class);
 
     private final TaxasRepository taxasRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public TaxasService(TaxasRepository taxasRepository) {
+    public TaxasService(TaxasRepository taxasRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.taxasRepository = taxasRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -30,8 +33,9 @@ public class TaxasService {
      * @param taxas the entity to save.
      * @return the persisted entity.
      */
-    public Taxas save(Taxas taxas) {
+    public Taxas save(Taxas taxas) throws Exception {
         LOG.debug("Request to save Taxas : {}", taxas);
+        taxas.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return taxasRepository.save(taxas);
     }
 
@@ -75,9 +79,10 @@ public class TaxasService {
      *
      * @return the list of entities.
      */
-    public List<Taxas> findAll() {
+    public List<Taxas> findAll() throws Exception {
         LOG.debug("Request to get all Taxas");
-        return taxasRepository.findAll();
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return taxasRepository.findByInstituicaoId(instituicao.getId());
     }
 
     /**

@@ -22,4 +22,6 @@ public interface FilialRepository extends MongoRepository<Filial, String> {
 
     @Query("{'id': ?0}")
     Optional<Filial> findOneWithEagerRelationships(String id);
+
+    List<Filial> findByInstituicaoId(String id);
 }

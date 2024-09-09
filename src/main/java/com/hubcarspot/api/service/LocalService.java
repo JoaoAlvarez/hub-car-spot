@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.Local;
 import com.hubcarspot.api.repository.LocalRepository;
 import java.util.List;
@@ -19,9 +20,11 @@ public class LocalService {
     private static final Logger LOG = LoggerFactory.getLogger(LocalService.class);
 
     private final LocalRepository localRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public LocalService(LocalRepository localRepository) {
+    public LocalService(LocalRepository localRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.localRepository = localRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -30,8 +33,9 @@ public class LocalService {
      * @param local the entity to save.
      * @return the persisted entity.
      */
-    public Local save(Local local) {
+    public Local save(Local local) throws Exception {
         LOG.debug("Request to save Local : {}", local);
+        local.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return localRepository.save(local);
     }
 
@@ -72,9 +76,10 @@ public class LocalService {
      *
      * @return the list of entities.
      */
-    public List<Local> findAll() {
+    public List<Local> findAll() throws Exception {
         LOG.debug("Request to get all Locals");
-        return localRepository.findAll();
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return localRepository.findByInstituicaoId(instituicao.getId());
     }
 
     /**

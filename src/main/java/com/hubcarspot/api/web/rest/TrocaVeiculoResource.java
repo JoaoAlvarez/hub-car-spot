@@ -33,7 +33,7 @@ public class TrocaVeiculoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(TrocaVeiculoResource.class);
 
-    private static final String ENTITY_NAME = "trocaVeiculo";
+    private static final String ENTITY_NAME = "Troca de veiculo";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -55,7 +55,7 @@ public class TrocaVeiculoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<TrocaVeiculo> createTrocaVeiculo(@Valid @RequestBody TrocaVeiculo trocaVeiculo) throws URISyntaxException {
+    public ResponseEntity<TrocaVeiculo> createTrocaVeiculo(@Valid @RequestBody TrocaVeiculo trocaVeiculo) throws Exception {
         LOG.debug("REST request to save TrocaVeiculo : {}", trocaVeiculo);
         if (trocaVeiculo.getId() != null) {
             throw new BadRequestAlertException("A new trocaVeiculo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -146,14 +146,10 @@ public class TrocaVeiculoResource {
     public ResponseEntity<List<TrocaVeiculo>> getAllTrocaVeiculos(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get a page of TrocaVeiculos");
-        Page<TrocaVeiculo> page;
-        if (eagerload) {
-            page = trocaVeiculoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = trocaVeiculoService.findAll(pageable);
-        }
+        Page<TrocaVeiculo> page = trocaVeiculoService.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

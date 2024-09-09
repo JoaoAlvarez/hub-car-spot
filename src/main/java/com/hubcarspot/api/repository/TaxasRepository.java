@@ -22,4 +22,6 @@ public interface TaxasRepository extends MongoRepository<Taxas, String> {
 
     @Query("{'id': ?0}")
     Optional<Taxas> findOneWithEagerRelationships(String id);
+
+    List<Taxas> findByInstituicaoId(String id);
 }

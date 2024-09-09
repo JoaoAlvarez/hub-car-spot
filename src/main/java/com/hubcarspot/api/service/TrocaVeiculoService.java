@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.TrocaVeiculo;
 import com.hubcarspot.api.repository.TrocaVeiculoRepository;
 import java.util.Optional;
@@ -18,9 +19,11 @@ public class TrocaVeiculoService {
     private static final Logger LOG = LoggerFactory.getLogger(TrocaVeiculoService.class);
 
     private final TrocaVeiculoRepository trocaVeiculoRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public TrocaVeiculoService(TrocaVeiculoRepository trocaVeiculoRepository) {
+    public TrocaVeiculoService(TrocaVeiculoRepository trocaVeiculoRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.trocaVeiculoRepository = trocaVeiculoRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -29,8 +32,9 @@ public class TrocaVeiculoService {
      * @param trocaVeiculo the entity to save.
      * @return the persisted entity.
      */
-    public TrocaVeiculo save(TrocaVeiculo trocaVeiculo) {
+    public TrocaVeiculo save(TrocaVeiculo trocaVeiculo) throws Exception {
         LOG.debug("Request to save TrocaVeiculo : {}", trocaVeiculo);
+        trocaVeiculo.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return trocaVeiculoRepository.save(trocaVeiculo);
     }
 
@@ -87,9 +91,10 @@ public class TrocaVeiculoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<TrocaVeiculo> findAll(Pageable pageable) {
+    public Page<TrocaVeiculo> findAll(Pageable pageable) throws Exception {
         LOG.debug("Request to get all TrocaVeiculos");
-        return trocaVeiculoRepository.findAll(pageable);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return trocaVeiculoRepository.findByInstituicaoId(instituicao.getId(), pageable);
     }
 
     /**

@@ -26,7 +26,7 @@ public class TaxasResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaxasResource.class);
 
-    private static final String ENTITY_NAME = "taxas";
+    private static final String ENTITY_NAME = "Taxas";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -48,7 +48,7 @@ public class TaxasResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Taxas> createTaxas(@RequestBody Taxas taxas) throws URISyntaxException {
+    public ResponseEntity<Taxas> createTaxas(@RequestBody Taxas taxas) throws Exception {
         LOG.debug("REST request to save Taxas : {}", taxas);
         if (taxas.getId() != null) {
             throw new BadRequestAlertException("A new taxas cannot already have an ID", ENTITY_NAME, "idexists");
@@ -130,7 +130,8 @@ public class TaxasResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of taxas in body.
      */
     @GetMapping("")
-    public List<Taxas> getAllTaxas(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<Taxas> getAllTaxas(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload)
+        throws Exception {
         LOG.debug("REST request to get all Taxas");
         return taxasService.findAll();
     }

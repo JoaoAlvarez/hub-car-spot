@@ -22,4 +22,6 @@ public interface FornecedorRepository extends MongoRepository<Fornecedor, String
 
     @Query("{'id': ?0}")
     Optional<Fornecedor> findOneWithEagerRelationships(String id);
+
+    Page<Fornecedor> findByInstituicaoId(String id, Pageable pageable);
 }

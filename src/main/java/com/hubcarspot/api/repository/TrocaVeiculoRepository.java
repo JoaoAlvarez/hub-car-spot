@@ -22,4 +22,6 @@ public interface TrocaVeiculoRepository extends MongoRepository<TrocaVeiculo, St
 
     @Query("{'id': ?0}")
     Optional<TrocaVeiculo> findOneWithEagerRelationships(String id);
+
+    Page<TrocaVeiculo> findByInstituicaoId(String id, Pageable pageable);
 }

@@ -28,7 +28,7 @@ public class UsuarioInstituicaoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(UsuarioInstituicaoResource.class);
 
-    private static final String ENTITY_NAME = "usuarioInstituicao";
+    private static final String ENTITY_NAME = "Usuário";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;

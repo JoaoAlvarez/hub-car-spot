@@ -26,7 +26,7 @@ public class CombustivelResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(CombustivelResource.class);
 
-    private static final String ENTITY_NAME = "combustivel";
+    private static final String ENTITY_NAME = "Combustivel";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;

@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.StatusDocumento;
 import com.hubcarspot.api.repository.StatusDocumentoRepository;
 import java.util.List;
@@ -19,9 +20,14 @@ public class StatusDocumentoService {
     private static final Logger LOG = LoggerFactory.getLogger(StatusDocumentoService.class);
 
     private final StatusDocumentoRepository statusDocumentoRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public StatusDocumentoService(StatusDocumentoRepository statusDocumentoRepository) {
+    public StatusDocumentoService(
+        StatusDocumentoRepository statusDocumentoRepository,
+        UsuarioInstituicaoService usuarioInstituicaoService
+    ) {
         this.statusDocumentoRepository = statusDocumentoRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -30,8 +36,9 @@ public class StatusDocumentoService {
      * @param statusDocumento the entity to save.
      * @return the persisted entity.
      */
-    public StatusDocumento save(StatusDocumento statusDocumento) {
+    public StatusDocumento save(StatusDocumento statusDocumento) throws Exception {
         LOG.debug("Request to save StatusDocumento : {}", statusDocumento);
+        statusDocumento.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return statusDocumentoRepository.save(statusDocumento);
     }
 
@@ -75,9 +82,10 @@ public class StatusDocumentoService {
      *
      * @return the list of entities.
      */
-    public List<StatusDocumento> findAll() {
+    public List<StatusDocumento> findAll() throws Exception {
         LOG.debug("Request to get all StatusDocumentos");
-        return statusDocumentoRepository.findAll();
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return statusDocumentoRepository.findByInstituicaoId(instituicao.getId());
     }
 
     /**

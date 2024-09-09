@@ -22,4 +22,6 @@ public interface FinanceiraRepository extends MongoRepository<Financeira, String
 
     @Query("{'id': ?0}")
     Optional<Financeira> findOneWithEagerRelationships(String id);
+
+    Page<Financeira> findByInstituicaoId(String id, Pageable pageable);
 }

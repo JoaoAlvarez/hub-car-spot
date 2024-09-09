@@ -33,7 +33,7 @@ public class VendaVeiculoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(VendaVeiculoResource.class);
 
-    private static final String ENTITY_NAME = "vendaVeiculo";
+    private static final String ENTITY_NAME = "Venda de veiculo";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -55,7 +55,7 @@ public class VendaVeiculoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<VendaVeiculo> createVendaVeiculo(@Valid @RequestBody VendaVeiculo vendaVeiculo) throws URISyntaxException {
+    public ResponseEntity<VendaVeiculo> createVendaVeiculo(@Valid @RequestBody VendaVeiculo vendaVeiculo) throws Exception {
         LOG.debug("REST request to save VendaVeiculo : {}", vendaVeiculo);
         if (vendaVeiculo.getId() != null) {
             throw new BadRequestAlertException("A new vendaVeiculo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -146,14 +146,10 @@ public class VendaVeiculoResource {
     public ResponseEntity<List<VendaVeiculo>> getAllVendaVeiculos(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get a page of VendaVeiculos");
-        Page<VendaVeiculo> page;
-        if (eagerload) {
-            page = vendaVeiculoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = vendaVeiculoService.findAll(pageable);
-        }
+        Page<VendaVeiculo> page = vendaVeiculoService.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -178,7 +174,7 @@ public class VendaVeiculoResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVendaVeiculo(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteVendaVeiculo(@PathVariable("id") String id) throws Exception {
         LOG.debug("REST request to delete VendaVeiculo : {}", id);
         vendaVeiculoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();

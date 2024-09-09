@@ -22,4 +22,6 @@ public interface LocalRepository extends MongoRepository<Local, String> {
 
     @Query("{'id': ?0}")
     Optional<Local> findOneWithEagerRelationships(String id);
+
+    List<Local> findByInstituicaoId(String id);
 }

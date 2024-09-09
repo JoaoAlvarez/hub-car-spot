@@ -1,6 +1,7 @@
 package com.hubcarspot.api.service;
 
 import com.hubcarspot.api.domain.Filial;
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.repository.FilialRepository;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +20,11 @@ public class FilialService {
     private static final Logger LOG = LoggerFactory.getLogger(FilialService.class);
 
     private final FilialRepository filialRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public FilialService(FilialRepository filialRepository) {
+    public FilialService(FilialRepository filialRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.filialRepository = filialRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -30,8 +33,9 @@ public class FilialService {
      * @param filial the entity to save.
      * @return the persisted entity.
      */
-    public Filial save(Filial filial) {
+    public Filial save(Filial filial) throws Exception {
         LOG.debug("Request to save Filial : {}", filial);
+        filial.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return filialRepository.save(filial);
     }
 
@@ -96,9 +100,10 @@ public class FilialService {
      *
      * @return the list of entities.
      */
-    public List<Filial> findAll() {
+    public List<Filial> findAll() throws Exception {
         LOG.debug("Request to get all Filials");
-        return filialRepository.findAll();
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return filialRepository.findByInstituicaoId(instituicao.getId());
     }
 
     /**

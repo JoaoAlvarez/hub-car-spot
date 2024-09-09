@@ -1,6 +1,7 @@
 package com.hubcarspot.api.service;
 
 import com.hubcarspot.api.domain.Financeira;
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.repository.FinanceiraRepository;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,9 +19,11 @@ public class FinanceiraService {
     private static final Logger LOG = LoggerFactory.getLogger(FinanceiraService.class);
 
     private final FinanceiraRepository financeiraRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public FinanceiraService(FinanceiraRepository financeiraRepository) {
+    public FinanceiraService(FinanceiraRepository financeiraRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.financeiraRepository = financeiraRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -29,8 +32,9 @@ public class FinanceiraService {
      * @param financeira the entity to save.
      * @return the persisted entity.
      */
-    public Financeira save(Financeira financeira) {
+    public Financeira save(Financeira financeira) throws Exception {
         LOG.debug("Request to save Financeira : {}", financeira);
+        financeira.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return financeiraRepository.save(financeira);
     }
 
@@ -96,9 +100,10 @@ public class FinanceiraService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<Financeira> findAll(Pageable pageable) {
+    public Page<Financeira> findAll(Pageable pageable) throws Exception {
         LOG.debug("Request to get all Financeiras");
-        return financeiraRepository.findAll(pageable);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return financeiraRepository.findByInstituicaoId(instituicao.getId(), pageable);
     }
 
     /**

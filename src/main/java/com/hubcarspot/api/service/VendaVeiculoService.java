@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.VendaVeiculo;
 import com.hubcarspot.api.repository.VendaVeiculoRepository;
 import java.util.Optional;
@@ -18,9 +19,11 @@ public class VendaVeiculoService {
     private static final Logger LOG = LoggerFactory.getLogger(VendaVeiculoService.class);
 
     private final VendaVeiculoRepository vendaVeiculoRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public VendaVeiculoService(VendaVeiculoRepository vendaVeiculoRepository) {
+    public VendaVeiculoService(VendaVeiculoRepository vendaVeiculoRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.vendaVeiculoRepository = vendaVeiculoRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -29,8 +32,9 @@ public class VendaVeiculoService {
      * @param vendaVeiculo the entity to save.
      * @return the persisted entity.
      */
-    public VendaVeiculo save(VendaVeiculo vendaVeiculo) {
+    public VendaVeiculo save(VendaVeiculo vendaVeiculo) throws Exception {
         LOG.debug("Request to save VendaVeiculo : {}", vendaVeiculo);
+        vendaVeiculo.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return vendaVeiculoRepository.save(vendaVeiculo);
     }
 
@@ -93,9 +97,10 @@ public class VendaVeiculoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<VendaVeiculo> findAll(Pageable pageable) {
+    public Page<VendaVeiculo> findAll(Pageable pageable) throws Exception {
         LOG.debug("Request to get all VendaVeiculos");
-        return vendaVeiculoRepository.findAll(pageable);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return vendaVeiculoRepository.findByInstituicaoId(instituicao.getId(), pageable);
     }
 
     /**
@@ -123,8 +128,12 @@ public class VendaVeiculoService {
      *
      * @param id the id of the entity.
      */
-    public void delete(String id) {
+    public void delete(String id) throws Exception {
         LOG.debug("Request to delete VendaVeiculo : {}", id);
-        vendaVeiculoRepository.deleteById(id);
+        Optional<VendaVeiculo> vendaVeiculo = vendaVeiculoRepository.findById(id);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        if (vendaVeiculo.isPresent() && vendaVeiculo.get().getInstituicao().getId().compareTo(instituicao.getId()) == 0) {
+            vendaVeiculoRepository.deleteById(id);
+        }
     }
 }

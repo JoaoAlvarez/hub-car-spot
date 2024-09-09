@@ -22,4 +22,6 @@ public interface StatusDocumentoRepository extends MongoRepository<StatusDocumen
 
     @Query("{'id': ?0}")
     Optional<StatusDocumento> findOneWithEagerRelationships(String id);
+
+    List<StatusDocumento> findByInstituicaoId(String id);
 }

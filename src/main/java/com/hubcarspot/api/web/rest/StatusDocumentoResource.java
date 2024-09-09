@@ -28,7 +28,7 @@ public class StatusDocumentoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(StatusDocumentoResource.class);
 
-    private static final String ENTITY_NAME = "statusDocumento";
+    private static final String ENTITY_NAME = "status de Documento";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -50,8 +50,7 @@ public class StatusDocumentoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<StatusDocumento> createStatusDocumento(@Valid @RequestBody StatusDocumento statusDocumento)
-        throws URISyntaxException {
+    public ResponseEntity<StatusDocumento> createStatusDocumento(@Valid @RequestBody StatusDocumento statusDocumento) throws Exception {
         LOG.debug("REST request to save StatusDocumento : {}", statusDocumento);
         if (statusDocumento.getId() != null) {
             throw new BadRequestAlertException("A new statusDocumento cannot already have an ID", ENTITY_NAME, "idexists");
@@ -140,7 +139,7 @@ public class StatusDocumentoResource {
     @GetMapping("")
     public List<StatusDocumento> getAllStatusDocumentos(
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get all StatusDocumentos");
         return statusDocumentoService.findAll();
     }

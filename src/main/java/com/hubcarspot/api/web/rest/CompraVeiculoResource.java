@@ -33,7 +33,7 @@ public class CompraVeiculoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(CompraVeiculoResource.class);
 
-    private static final String ENTITY_NAME = "compraVeiculo";
+    private static final String ENTITY_NAME = "Compra de Veiculo";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -55,7 +55,7 @@ public class CompraVeiculoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<CompraVeiculo> createCompraVeiculo(@Valid @RequestBody CompraVeiculo compraVeiculo) throws URISyntaxException {
+    public ResponseEntity<CompraVeiculo> createCompraVeiculo(@Valid @RequestBody CompraVeiculo compraVeiculo) throws Exception {
         LOG.debug("REST request to save CompraVeiculo : {}", compraVeiculo);
         if (compraVeiculo.getId() != null) {
             throw new BadRequestAlertException("A new compraVeiculo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -146,14 +146,9 @@ public class CompraVeiculoResource {
     public ResponseEntity<List<CompraVeiculo>> getAllCompraVeiculos(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get a page of CompraVeiculos");
-        Page<CompraVeiculo> page;
-        if (eagerload) {
-            page = compraVeiculoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = compraVeiculoService.findAll(pageable);
-        }
+        Page<CompraVeiculo> page = compraVeiculoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

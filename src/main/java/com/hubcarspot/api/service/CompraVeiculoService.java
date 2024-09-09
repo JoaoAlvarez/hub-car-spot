@@ -1,6 +1,7 @@
 package com.hubcarspot.api.service;
 
 import com.hubcarspot.api.domain.CompraVeiculo;
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.repository.CompraVeiculoRepository;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,9 +19,11 @@ public class CompraVeiculoService {
     private static final Logger LOG = LoggerFactory.getLogger(CompraVeiculoService.class);
 
     private final CompraVeiculoRepository compraVeiculoRepository;
+    private final UsuarioInstituicaoService usuarioInstituicaoService;
 
-    public CompraVeiculoService(CompraVeiculoRepository compraVeiculoRepository) {
+    public CompraVeiculoService(CompraVeiculoRepository compraVeiculoRepository, UsuarioInstituicaoService usuarioInstituicaoService) {
         this.compraVeiculoRepository = compraVeiculoRepository;
+        this.usuarioInstituicaoService = usuarioInstituicaoService;
     }
 
     /**
@@ -29,8 +32,9 @@ public class CompraVeiculoService {
      * @param compraVeiculo the entity to save.
      * @return the persisted entity.
      */
-    public CompraVeiculo save(CompraVeiculo compraVeiculo) {
+    public CompraVeiculo save(CompraVeiculo compraVeiculo) throws Exception {
         LOG.debug("Request to save CompraVeiculo : {}", compraVeiculo);
+        compraVeiculo.setInstituicao(usuarioInstituicaoService.instituicaoDoUsuarioLogado());
         return compraVeiculoRepository.save(compraVeiculo);
     }
 
@@ -99,9 +103,10 @@ public class CompraVeiculoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<CompraVeiculo> findAll(Pageable pageable) {
+    public Page<CompraVeiculo> findAll(Pageable pageable) throws Exception {
         LOG.debug("Request to get all CompraVeiculos");
-        return compraVeiculoRepository.findAll(pageable);
+        Instituicao instituicao = usuarioInstituicaoService.instituicaoDoUsuarioLogado();
+        return compraVeiculoRepository.findByInstituicaoId(instituicao.getId(), pageable);
     }
 
     /**

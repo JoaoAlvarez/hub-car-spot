@@ -28,7 +28,7 @@ public class FilialResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(FilialResource.class);
 
-    private static final String ENTITY_NAME = "filial";
+    private static final String ENTITY_NAME = "Filial";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -50,7 +50,7 @@ public class FilialResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Filial> createFilial(@Valid @RequestBody Filial filial) throws URISyntaxException {
+    public ResponseEntity<Filial> createFilial(@Valid @RequestBody Filial filial) throws Exception {
         LOG.debug("REST request to save Filial : {}", filial);
         if (filial.getId() != null) {
             throw new BadRequestAlertException("A new filial cannot already have an ID", ENTITY_NAME, "idexists");
@@ -134,7 +134,8 @@ public class FilialResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of filials in body.
      */
     @GetMapping("")
-    public List<Filial> getAllFilials(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
+    public List<Filial> getAllFilials(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload)
+        throws Exception {
         LOG.debug("REST request to get all Filials");
         return filialService.findAll();
     }

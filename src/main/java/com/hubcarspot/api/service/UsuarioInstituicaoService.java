@@ -1,5 +1,6 @@
 package com.hubcarspot.api.service;
 
+import com.hubcarspot.api.domain.Instituicao;
 import com.hubcarspot.api.domain.UsuarioInstituicao;
 import com.hubcarspot.api.repository.UsuarioInstituicaoRepository;
 import com.hubcarspot.api.security.SecurityUtils;
@@ -123,6 +124,13 @@ public class UsuarioInstituicaoService {
     public Optional<List<UsuarioInstituicao>> listarInstuitoces(String login) {
         LOG.debug("Request to get UsuarioInstituicao findByIdentificador : {}", login);
         return usuarioInstituicaoRepository.findByIdentificador(login);
+    }
+
+    public Instituicao instituicaoDoUsuarioLogado() throws Exception {
+        return usuarioInstituicaoRepository
+            .findById(SecurityUtils.getCurrentUser())
+            .orElseThrow(() -> new Exception("Instituicão nao informada"))
+            .getInstituicao();
     }
 
     /**

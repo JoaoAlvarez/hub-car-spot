@@ -22,4 +22,6 @@ public interface CompraVeiculoRepository extends MongoRepository<CompraVeiculo, 
 
     @Query("{'id': ?0}")
     Optional<CompraVeiculo> findOneWithEagerRelationships(String id);
+
+    Page<CompraVeiculo> findByInstituicaoId(String id, Pageable pageable);
 }

@@ -33,7 +33,7 @@ public class VeiculoResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(VeiculoResource.class);
 
-    private static final String ENTITY_NAME = "veiculo";
+    private static final String ENTITY_NAME = "Veiculo";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;

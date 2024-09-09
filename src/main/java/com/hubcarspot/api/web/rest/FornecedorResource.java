@@ -33,7 +33,7 @@ public class FornecedorResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(FornecedorResource.class);
 
-    private static final String ENTITY_NAME = "fornecedor";
+    private static final String ENTITY_NAME = "Fornecedor";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -55,7 +55,7 @@ public class FornecedorResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Fornecedor> createFornecedor(@Valid @RequestBody Fornecedor fornecedor) throws URISyntaxException {
+    public ResponseEntity<Fornecedor> createFornecedor(@Valid @RequestBody Fornecedor fornecedor) throws Exception {
         LOG.debug("REST request to save Fornecedor : {}", fornecedor);
         if (fornecedor.getId() != null) {
             throw new BadRequestAlertException("A new fornecedor cannot already have an ID", ENTITY_NAME, "idexists");
@@ -146,14 +146,10 @@ public class FornecedorResource {
     public ResponseEntity<List<Fornecedor>> getAllFornecedors(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    ) throws Exception {
         LOG.debug("REST request to get a page of Fornecedors");
-        Page<Fornecedor> page;
-        if (eagerload) {
-            page = fornecedorService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = fornecedorService.findAll(pageable);
-        }
+        Page<Fornecedor> page = fornecedorService.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
