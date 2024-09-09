@@ -28,7 +28,6 @@ type CompraVeiculoFormGroupContent = {
   dataCompra: FormControl<ICompraVeiculo['dataCompra']>;
   condicaoPagamento: FormControl<ICompraVeiculo['condicaoPagamento']>;
   valorPago: FormControl<ICompraVeiculo['valorPago']>;
-  instituicao: FormControl<ICompraVeiculo['instituicao']>;
   veiculo: FormControl<ICompraVeiculo['veiculo']>;
   filial: FormControl<ICompraVeiculo['filial']>;
 };
@@ -68,7 +67,6 @@ export class CompraVeiculoFormService {
         validators: [Validators.required],
       }),
       valorPago: new FormControl(compraVeiculoRawValue.valorPago),
-      instituicao: new FormControl(compraVeiculoRawValue.instituicao),
       veiculo: new FormControl(compraVeiculoRawValue.veiculo),
       filial: new FormControl(compraVeiculoRawValue.filial),
     });

@@ -27,7 +27,6 @@ type FilialFormGroupContent = {
   cidade: FormControl<IFilial['cidade']>;
   numero: FormControl<IFilial['numero']>;
   uf: FormControl<IFilial['uf']>;
-  instituicao: FormControl<IFilial['instituicao']>;
 };
 
 export type FilialFormGroup = FormGroup<FilialFormGroupContent>;
@@ -58,7 +57,6 @@ export class FilialFormService {
       cidade: new FormControl(filialRawValue.cidade),
       numero: new FormControl(filialRawValue.numero),
       uf: new FormControl(filialRawValue.uf),
-      instituicao: new FormControl(filialRawValue.instituicao),
     });
   }
 

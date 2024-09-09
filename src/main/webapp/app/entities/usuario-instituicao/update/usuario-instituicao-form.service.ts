@@ -24,7 +24,6 @@ type UsuarioInstituicaoFormGroupContent = {
   read: FormControl<IUsuarioInstituicao['read']>;
   write: FormControl<IUsuarioInstituicao['write']>;
   update: FormControl<IUsuarioInstituicao['update']>;
-  instituicao: FormControl<IUsuarioInstituicao['instituicao']>;
 };
 
 export type UsuarioInstituicaoFormGroup = FormGroup<UsuarioInstituicaoFormGroupContent>;
@@ -62,7 +61,6 @@ export class UsuarioInstituicaoFormService {
       update: new FormControl(usuarioInstituicaoRawValue.update, {
         validators: [Validators.required],
       }),
-      instituicao: new FormControl(usuarioInstituicaoRawValue.instituicao),
     });
   }
 

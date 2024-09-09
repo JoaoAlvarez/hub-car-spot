@@ -17,23 +17,6 @@
           <label class="form-label" for="field_nome">Nome</label>
           <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_instituicao">Instituicao</label>
-          <select
-            class="form-control"
-            id="field_instituicao"
-            data-cy="instituicao"
-            name="instituicao"
-            formControlName="instituicao"
-            [compareWith]="compareInstituicao"
-          >
-            <option [ngValue]="null"></option>
-            @for (instituicaoOption of instituicaosSharedCollection; track $index) {
-              <option [ngValue]="instituicaoOption">{{ instituicaoOption.nome }}</option>
-            }
-          </select>
-        </div>
       </div>
 
       <div>

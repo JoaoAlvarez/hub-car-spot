@@ -27,7 +27,6 @@ type VendaVeiculoFormGroupContent = {
   valorEntrada: FormControl<IVendaVeiculo['valorEntrada']>;
   valorFinanciado: FormControl<IVendaVeiculo['valorFinanciado']>;
   veiculo: FormControl<IVendaVeiculo['veiculo']>;
-  instituicao: FormControl<IVendaVeiculo['instituicao']>;
   filial: FormControl<IVendaVeiculo['filial']>;
   financeira: FormControl<IVendaVeiculo['financeira']>;
 };
@@ -68,7 +67,6 @@ export class VendaVeiculoFormService {
       valorEntrada: new FormControl(vendaVeiculoRawValue.valorEntrada),
       valorFinanciado: new FormControl(vendaVeiculoRawValue.valorFinanciado),
       veiculo: new FormControl(vendaVeiculoRawValue.veiculo),
-      instituicao: new FormControl(vendaVeiculoRawValue.instituicao),
       filial: new FormControl(vendaVeiculoRawValue.filial),
       financeira: new FormControl(vendaVeiculoRawValue.financeira),
     });

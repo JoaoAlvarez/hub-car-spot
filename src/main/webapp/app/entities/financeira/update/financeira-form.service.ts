@@ -27,7 +27,6 @@ type FinanceiraFormGroupContent = {
   cidade: FormControl<IFinanceira['cidade']>;
   numero: FormControl<IFinanceira['numero']>;
   uf: FormControl<IFinanceira['uf']>;
-  instituicao: FormControl<IFinanceira['instituicao']>;
 };
 
 export type FinanceiraFormGroup = FormGroup<FinanceiraFormGroupContent>;
@@ -58,7 +57,6 @@ export class FinanceiraFormService {
       cidade: new FormControl(financeiraRawValue.cidade),
       numero: new FormControl(financeiraRawValue.numero),
       uf: new FormControl(financeiraRawValue.uf),
-      instituicao: new FormControl(financeiraRawValue.instituicao),
     });
   }
 

@@ -19,7 +19,6 @@ type LocalFormDefaults = Pick<NewLocal, 'id'>;
 type LocalFormGroupContent = {
   id: FormControl<ILocal['id'] | NewLocal['id']>;
   nome: FormControl<ILocal['nome']>;
-  instituicao: FormControl<ILocal['instituicao']>;
 };
 
 export type LocalFormGroup = FormGroup<LocalFormGroupContent>;
@@ -40,7 +39,6 @@ export class LocalFormService {
         },
       ),
       nome: new FormControl(localRawValue.nome),
-      instituicao: new FormControl(localRawValue.instituicao),
     });
   }
 

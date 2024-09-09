@@ -27,7 +27,6 @@ type FornecedorFormGroupContent = {
   cidade: FormControl<IFornecedor['cidade']>;
   numero: FormControl<IFornecedor['numero']>;
   uf: FormControl<IFornecedor['uf']>;
-  instituicao: FormControl<IFornecedor['instituicao']>;
 };
 
 export type FornecedorFormGroup = FormGroup<FornecedorFormGroupContent>;
@@ -58,7 +57,6 @@ export class FornecedorFormService {
       cidade: new FormControl(fornecedorRawValue.cidade),
       numero: new FormControl(fornecedorRawValue.numero),
       uf: new FormControl(fornecedorRawValue.uf),
-      instituicao: new FormControl(fornecedorRawValue.instituicao),
     });
   }
 

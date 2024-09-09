@@ -20,7 +20,6 @@ type TaxasFormGroupContent = {
   id: FormControl<ITaxas['id'] | NewTaxas['id']>;
   nome: FormControl<ITaxas['nome']>;
   valor: FormControl<ITaxas['valor']>;
-  instituicao: FormControl<ITaxas['instituicao']>;
 };
 
 export type TaxasFormGroup = FormGroup<TaxasFormGroupContent>;
@@ -42,7 +41,6 @@ export class TaxasFormService {
       ),
       nome: new FormControl(taxasRawValue.nome),
       valor: new FormControl(taxasRawValue.valor),
-      instituicao: new FormControl(taxasRawValue.instituicao),
     });
   }
 

@@ -18,9 +18,7 @@ type StatusDocumentoFormDefaults = Pick<NewStatusDocumento, 'id'>;
 
 type StatusDocumentoFormGroupContent = {
   id: FormControl<IStatusDocumento['id'] | NewStatusDocumento['id']>;
-  instituicaoId: FormControl<IStatusDocumento['instituicaoId']>;
   nome: FormControl<IStatusDocumento['nome']>;
-  instituicao: FormControl<IStatusDocumento['instituicao']>;
 };
 
 export type StatusDocumentoFormGroup = FormGroup<StatusDocumentoFormGroupContent>;
@@ -40,11 +38,7 @@ export class StatusDocumentoFormService {
           validators: [Validators.required],
         },
       ),
-      instituicaoId: new FormControl(statusDocumentoRawValue.instituicaoId, {
-        validators: [Validators.required],
-      }),
       nome: new FormControl(statusDocumentoRawValue.nome),
-      instituicao: new FormControl(statusDocumentoRawValue.instituicao),
     });
   }
 

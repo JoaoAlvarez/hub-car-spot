@@ -27,7 +27,6 @@ type TrocaVeiculoFormGroupContent = {
   veiculoEntrada: FormControl<ITrocaVeiculo['veiculoEntrada']>;
   veiculoSaida: FormControl<ITrocaVeiculo['veiculoSaida']>;
   filial: FormControl<ITrocaVeiculo['filial']>;
-  instituicao: FormControl<ITrocaVeiculo['instituicao']>;
 };
 
 export type TrocaVeiculoFormGroup = FormGroup<TrocaVeiculoFormGroupContent>;
@@ -62,7 +61,6 @@ export class TrocaVeiculoFormService {
       veiculoEntrada: new FormControl(trocaVeiculoRawValue.veiculoEntrada),
       veiculoSaida: new FormControl(trocaVeiculoRawValue.veiculoSaida),
       filial: new FormControl(trocaVeiculoRawValue.filial),
-      instituicao: new FormControl(trocaVeiculoRawValue.instituicao),
     });
   }
 
